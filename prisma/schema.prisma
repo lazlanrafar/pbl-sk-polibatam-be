@@ -9,3 +9,43 @@ datasource db {
   provider = "sqlite"
   url      = env("DATABASE_URL")
 }
+
+model Admin {
+  id  Int    @id @default(autoincrement())
+  nim String @unique
+}
+
+model TagGroup {
+  id             Int              @id @default(autoincrement())
+  nama           String
+  tag            String
+  createdBy      String
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
+  SuratKeputusan SuratKeputusan[]
+  SuratTugas     SuratTugas[]
+}
+
+model SuratKeputusan {
+  id        Int       @id @default(autoincrement())
+  nama      String
+  filePath  String
+  deskripsi String
+  tagId     Int
+  TagGroup  TagGroup? @relation(fields: [tagId], references: [id])
+  createdBy String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+model SuratTugas {
+  id        Int       @id @default(autoincrement())
+  nama      String
+  filePath  String
+  deskripsi String
+  tagId     Int
+  TagGroup  TagGroup? @relation(fields: [tagId], references: [id])
+  createdBy String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
