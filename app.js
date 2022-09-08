@@ -4,9 +4,7 @@ var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 require("dotenv").config();
-const AuthRouter = require("./app/auth/auth.router");
-const DosenRouter = require("./app/dosen/dosen.router");
-const MahasiswaRouter = require("./app/mahasiswa/mahasiswa.router");
+const PolibatamRouter = require("./app/polibatam/polibatam.router");
 
 var app = express();
 
@@ -16,9 +14,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
-app.use("/auth", AuthRouter);
-app.use("/dosen", DosenRouter);
-app.use("/mahasiswa", MahasiswaRouter);
+app.use("/polibatam", PolibatamRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
