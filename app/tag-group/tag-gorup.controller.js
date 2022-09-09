@@ -31,4 +31,17 @@ module.exports = {
       InternalServerError(res, {}, "Terjadi Kesalahan");
     }
   },
+  UpdateTagGroup: async (req, res) => {
+    try {
+      const result = await prisma.tagGroup.update({
+        where: {
+          id: parseInt(req.params.id),
+        },
+        data: req.body,
+      });
+      return Ok(res, result, "Berhasil mengubah Tag Group");
+    } catch (error) {
+      InternalServerError(res, {}, "Terjadi Kesalahan");
+    }
+  },
 };
