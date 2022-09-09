@@ -21,4 +21,14 @@ module.exports = {
       InternalServerError(res, {}, "Terjadi Kesalahan");
     }
   },
+  CreateTagGroup: async (req, res) => {
+    try {
+      const result = await prisma.tagGroup.create({
+        data: req.body,
+      });
+      return Ok(res, result, "Berhasil membuat Tag Group");
+    } catch (error) {
+      InternalServerError(res, {}, "Terjadi Kesalahan");
+    }
+  },
 };
