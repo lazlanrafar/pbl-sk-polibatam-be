@@ -44,4 +44,16 @@ module.exports = {
       InternalServerError(res, {}, "Terjadi Kesalahan");
     }
   },
+  DeleteTagGroup: async (req, res) => {
+    try {
+      const result = await prisma.tagGroup.delete({
+        where: {
+          id: parseInt(req.params.id),
+        },
+      });
+      return Ok(res, result, "Berhasil menghapus Tag Group");
+    } catch (error) {
+      InternalServerError(res, {}, "Terjadi Kesalahan");
+    }
+  },
 };
