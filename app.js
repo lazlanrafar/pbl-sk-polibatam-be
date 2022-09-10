@@ -7,6 +7,7 @@ require("dotenv").config();
 const PolibatamRouter = require("./app/polibatam/polibatam.router");
 const TagGroupRouter = require("./app/tag-group/tag-group.router");
 const SuratKeputusanRouter = require("./app/surat-keputusan/surat-keputusan.router");
+const SuratSuratTugas = require("./app/surat-tugas/surat-tugas.router");
 
 var app = express();
 
@@ -23,6 +24,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use("/polibatam", PolibatamRouter);
 app.use("/tag-group", TagGroupRouter);
 app.use("/surat-keputusan", SuratKeputusanRouter);
+app.use("/surat-tugas", SuratSuratTugas);
 
 // Link to the documents
 app.get("/documents", express.static("public/documents"));
