@@ -12,4 +12,10 @@ module.exports = {
     }
     return await prisma.suratKeputusan.findMany();
   },
+  CreateSuratKeputusan: async (data) => {
+    console.log(data);
+    return await prisma.suratKeputusan.create({
+      data,
+    });
+  },
 };
