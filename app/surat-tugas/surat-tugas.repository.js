@@ -17,4 +17,12 @@ module.exports = {
       data,
     });
   },
+  UpdateSuratTugas: async (id, data) => {
+    return await prisma.suratTugas.update({
+      where: {
+        id: parseInt(id),
+      },
+      data,
+    });
+  },
 };
