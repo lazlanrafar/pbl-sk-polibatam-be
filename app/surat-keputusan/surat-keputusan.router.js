@@ -2,6 +2,7 @@ const express = require("express");
 const {
   ReadSuratKeputusan,
   CreateSuratKeputusan,
+  UpdateSuratKeputusan,
 } = require("./surat-keputusan.controller");
 const router = express.Router();
 
@@ -21,5 +22,6 @@ const Upload = multer({
 
 router.get("/:id?", ReadSuratKeputusan);
 router.post("/", Upload, CreateSuratKeputusan);
+router.put("/:id", Upload, UpdateSuratKeputusan);
 
 module.exports = router;

@@ -13,8 +13,17 @@ module.exports = {
     return await prisma.suratKeputusan.findMany();
   },
   CreateSuratKeputusan: async (data) => {
-    console.log(data);
+    // console.log(data);
     return await prisma.suratKeputusan.create({
+      data,
+    });
+  },
+  UpdateSuratKeputusan: async (id, data) => {
+    // console.log(id, data);
+    return await prisma.suratKeputusan.update({
+      where: {
+        id: parseInt(id),
+      },
       data,
     });
   },
