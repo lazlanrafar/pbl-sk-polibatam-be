@@ -50,7 +50,18 @@ module.exports = {
           "/tampilkan-semua?pilih=0&token=" +
           process.env.API_POLIBATAM_TOKEN,
       }).then((response) => {
-        console.log(response.data);
+        Ok(res, response.data.data, response.data.message);
+      });
+    } catch (error) {
+      InternalServerError(res, {}, error);
+    }
+  },
+  ReadMahasiswaByNim: async (req, res) => {
+    try {
+      await axios({
+        method: "post",
+        url: process.env.API_POLIBATAM_URL + "/cek-id?id=" + req.params.nim,
+      }).then((response) => {
         Ok(res, response.data.data, response.data.message);
       });
     } catch (error) {
