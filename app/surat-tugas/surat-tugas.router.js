@@ -7,6 +7,7 @@ const {
   ReadSuratTugas,
   CreateSuratTugas,
   UpdateSuratTugas,
+  DeleteSuratTugas,
 } = require("./surat-tugas.controller");
 
 const Storage = multer.diskStorage({
@@ -23,5 +24,6 @@ const Upload = multer({
 router.get("/:id?", ReadSuratTugas);
 router.post("/", Upload, CreateSuratTugas);
 router.put("/:id", Upload, UpdateSuratTugas);
+router.delete("/:id", DeleteSuratTugas);
 
 module.exports = router;

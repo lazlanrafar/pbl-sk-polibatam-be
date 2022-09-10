@@ -3,6 +3,7 @@ const {
   FetchSuratTugas,
   CreateSuratTuas,
   UpdateSuratTugas,
+  DeleteSuratTugas,
 } = require("./surat-tugas.repository");
 
 module.exports = {
@@ -47,6 +48,14 @@ module.exports = {
 
       const result = await UpdateSuratTugas(req.params.id, payload);
       return Ok(res, result, "Berhasil mengubah Surat Keputusan");
+    } catch (error) {
+      InternalServerError(res, {}, "Terjadi Kesalahan");
+    }
+  },
+  DeleteSuratTugas: async (req, res) => {
+    try {
+      const result = await DeleteSuratTugas(req.params.id);
+      return Ok(res, result, "Berhasil menghapus Surat Keputusan");
     } catch (error) {
       InternalServerError(res, {}, "Terjadi Kesalahan");
     }
