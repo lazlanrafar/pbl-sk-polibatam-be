@@ -3,7 +3,10 @@ const router = express.Router();
 
 const path = require("path");
 const multer = require("multer");
-const { ReadSuratTugas } = require("./surat-tugas.controller");
+const {
+  ReadSuratTugas,
+  CreateSuratTugas,
+} = require("./surat-tugas.controller");
 
 const Storage = multer.diskStorage({
   destination: "public/documents/",
@@ -17,5 +20,6 @@ const Upload = multer({
 }).fields([{ name: "filePath", maxCount: 1 }]);
 
 router.get("/:id?", ReadSuratTugas);
+router.post("/", Upload, CreateSuratTugas);
 
 module.exports = router;

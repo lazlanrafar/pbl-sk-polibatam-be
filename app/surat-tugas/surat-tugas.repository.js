@@ -12,4 +12,9 @@ module.exports = {
     }
     return await prisma.suratTugas.findMany();
   },
+  CreateSuratTuas: async (data) => {
+    return await prisma.suratTugas.create({
+      data,
+    });
+  },
 };
