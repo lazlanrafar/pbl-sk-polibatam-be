@@ -32,7 +32,7 @@ model SuratKeputusan {
   filePath  String
   deskripsi String
   tagId     Int
-  TagGroup  TagGroup? @relation(fields: [tagId], references: [id])
+  TagGroup  TagGroup? @relation(fields: [tagId], references: [id], onDelete: Cascade)
   createdBy String
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
@@ -44,7 +44,7 @@ model SuratTugas {
   filePath  String
   deskripsi String
   tagId     Int
-  TagGroup  TagGroup? @relation(fields: [tagId], references: [id])
+  TagGroup  TagGroup? @relation(fields: [tagId], references: [id], onDelete: Cascade)
   createdBy String
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt

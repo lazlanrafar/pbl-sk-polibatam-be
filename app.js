@@ -6,6 +6,7 @@ var logger = require("morgan");
 require("dotenv").config();
 const PolibatamRouter = require("./app/polibatam/polibatam.router");
 const TagGroupRouter = require("./app/tag-group/tag-group.router");
+const SuratKeputusanRouter = require("./app/surat-keputusan/surat-keputusan.router");
 
 var app = express();
 
@@ -21,6 +22,7 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/polibatam", PolibatamRouter);
 app.use("/tag-group", TagGroupRouter);
+app.use("/surat-keputusan", SuratKeputusanRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
