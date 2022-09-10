@@ -8,6 +8,7 @@ module.exports = {
   ReadSuratKeputusan: async (req, res) => {
     try {
       const result = await FetchSuratKeputusan(req.params.id);
+
       Ok(res, result, "Berhasil mengambil data");
     } catch (error) {
       InternalServerError(res, {}, "Terjadi Kesalahan");
@@ -17,7 +18,7 @@ module.exports = {
     try {
       const payload = {
         nama: req.body.nama,
-        filePath: req.files.filePath[0].path,
+        filePath: req.files.filePath[0].path.split("\\").pop(),
         deskripsi: req.body.deskripsi,
         tagId: +req.body.tagId,
         createdBy: req.body.createdBy,

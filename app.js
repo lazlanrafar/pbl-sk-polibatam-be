@@ -24,6 +24,9 @@ app.use("/polibatam", PolibatamRouter);
 app.use("/tag-group", TagGroupRouter);
 app.use("/surat-keputusan", SuratKeputusanRouter);
 
+// Link to the documents
+app.get("/documents", express.static("public/documents"));
+
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));
