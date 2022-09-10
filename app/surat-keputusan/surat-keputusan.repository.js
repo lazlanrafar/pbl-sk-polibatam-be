@@ -27,4 +27,11 @@ module.exports = {
       data,
     });
   },
+  DeleteSuratKeputusan: async (id) => {
+    return await prisma.suratKeputusan.delete({
+      where: {
+        id: parseInt(id),
+      },
+    });
+  },
 };
