@@ -3,13 +3,17 @@ var express = require("express");
 var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
+let cors = require("cors");
+
 require("dotenv").config();
+
 const PolibatamRouter = require("./app/polibatam/polibatam.router");
 const TagGroupRouter = require("./app/tag-group/tag-group.router");
 const SuratKeputusanRouter = require("./app/surat-keputusan/surat-keputusan.router");
 const SuratSuratTugas = require("./app/surat-tugas/surat-tugas.router");
 
 var app = express();
+app.use(cors());
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
