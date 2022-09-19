@@ -8,9 +8,16 @@ module.exports = {
         where: {
           id: parseInt(id),
         },
+        include: {
+          TagGroup: true,
+        },
       });
     }
-    return await prisma.suratKeputusan.findMany();
+    return await prisma.suratKeputusan.findMany({
+      include: {
+        TagGroup: true,
+      },
+    });
   },
   CreateSuratKeputusan: async (data) => {
     // console.log(data);
