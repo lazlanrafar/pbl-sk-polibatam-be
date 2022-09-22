@@ -46,6 +46,8 @@ module.exports = {
         payload.filePath = req.files.filePath[0].path.split("\\").pop();
       }
 
+      // console.log(payload);
+
       const result = await UpdateSuratTugas(req.params.id, payload);
       return Ok(res, result, "Berhasil mengubah Surat Keputusan");
     } catch (error) {

@@ -8,9 +8,16 @@ module.exports = {
         where: {
           id: parseInt(id),
         },
+        include: {
+          TagGroup: true,
+        },
       });
     }
-    return await prisma.suratTugas.findMany();
+    return await prisma.suratTugas.findMany({
+      include: {
+        TagGroup: true,
+      },
+    });
   },
   CreateSuratTuas: async (data) => {
     return await prisma.suratTugas.create({
