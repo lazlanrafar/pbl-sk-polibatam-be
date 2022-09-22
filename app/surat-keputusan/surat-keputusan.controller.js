@@ -34,16 +34,13 @@ module.exports = {
   UpdateSuratKeputusan: async (req, res) => {
     try {
       const payload = {
-        nama: req.body.nama,
-        deskripsi: req.body.deskripsi,
+        ...req.body,
         tagId: +req.body.tagId,
-        createdBy: req.body.createdBy,
       };
 
       if (req.files.filePath) {
         payload.filePath = req.files.filePath[0].path.split("\\").pop();
       }
-      console.log(payload);
 
       const result = await UpdateSuratKeputusan(req.params.id, payload);
       return Ok(res, result, "Berhasil mengubah Surat Keputusan");

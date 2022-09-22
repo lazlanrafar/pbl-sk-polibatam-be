@@ -36,10 +36,8 @@ module.exports = {
   UpdateSuratTugas: async (req, res) => {
     try {
       const payload = {
-        nama: req.body.nama,
-        deskripsi: req.body.deskripsi,
+        ...req.body,
         tagId: +req.body.tagId,
-        createdBy: req.body.createdBy,
       };
 
       if (req.files.filePath) {
