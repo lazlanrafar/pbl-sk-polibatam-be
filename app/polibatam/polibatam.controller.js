@@ -6,7 +6,7 @@ const prisma = new PrismaClient();
 module.exports = {
   Login: async (req, res) => {
     try {
-      await axios({
+      const result = await axios({
         method: "post",
         url: process.env.API_POLIBATAM_URL + "/login",
         data: {
@@ -17,13 +17,21 @@ module.exports = {
         headers: {
           "Content-Type": "multipart/form-data",
         },
-      }).then((response) => {
-        if (response.data.status == "success") {
-          Ok(res, response.data.data, response.data.message);
-        } else {
-          InternalServerError(res, {}, "Username atau password salah");
-        }
       });
+
+      const isAdmin = await prisma.admin.findUnique({
+        where: {
+          nim: result.data.data.nim_nik_unit,
+        },
+      });
+
+      if (isAdmin) {
+        result.data.data.isAdmin = true;
+      } else {
+        result.data.data.isAdmin = false;
+      }
+
+      Ok(res, result.data.data, result.data.message);
     } catch (error) {
       InternalServerError(res, {}, error);
     }
