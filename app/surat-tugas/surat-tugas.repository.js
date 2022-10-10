@@ -3,16 +3,6 @@ const prisma = new PrismaClient();
 
 module.exports = {
   FetchSuratTugas: async (id) => {
-    if (id) {
-      return await prisma.suratTugas.findUnique({
-        where: {
-          id: parseInt(id),
-        },
-        include: {
-          TagGroup: true,
-        },
-      });
-    }
     return await prisma.suratTugas.findMany({
       include: {
         TagGroup: true,

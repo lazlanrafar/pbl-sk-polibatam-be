@@ -9,7 +9,22 @@ const {
 module.exports = {
   ReadSuratKeputusan: async (req, res) => {
     try {
-      const result = await FetchSuratKeputusan(req.params.id);
+      const result = await FetchSuratKeputusan();
+
+      if (req.query.nim) {
+        let resultNim = [];
+        for (const iterator of result) {
+          let tag = JSON.parse(iterator.TagGroup.tag);
+          for (const t of tag) {
+            if (t.nim_nik_unit == req.query.nim) {
+              resultNim.push(iterator);
+              break;
+            }
+          }
+        }
+
+        return Ok(res, resultNim, "Berhasil mengambil data");
+      }
 
       Ok(res, result, "Berhasil mengambil data");
     } catch (error) {
