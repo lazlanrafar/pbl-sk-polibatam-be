@@ -25,11 +25,25 @@ module.exports = {
         item.type = "surat-keputusan";
       });
 
-      const recentFile = [...recentFileSuratTugas, ...recentFileSuratKeputusan];
+      let recentFile = [...recentFileSuratTugas, ...recentFileSuratKeputusan];
 
       recentFile.sort((a, b) => {
         return new Date(b.createdAt) - new Date(a.createdAt);
       });
+
+      if (req.query.nim) {
+        let resultNim = [];
+        for (const iterator of recentFile) {
+          let tag = JSON.parse(iterator.TagGroup.tag);
+          for (const t of tag) {
+            if (t.nim_nik_unit == req.query.nim) {
+              resultNim.push(iterator);
+              break;
+            }
+          }
+        }
+        recentFile = resultNim;
+      }
 
       const result = {
         totalSuratTugas,

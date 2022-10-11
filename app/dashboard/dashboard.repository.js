@@ -19,6 +19,9 @@ module.exports = {
       orderBy: {
         createdAt: "desc",
       },
+      include: {
+        TagGroup: true,
+      },
       take: 5,
     });
   },
@@ -26,6 +29,9 @@ module.exports = {
     return await prisma.suratKeputusan.findMany({
       orderBy: {
         createdAt: "desc",
+      },
+      include: {
+        TagGroup: true,
       },
       take: 5,
     });
