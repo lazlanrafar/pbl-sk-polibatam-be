@@ -5,8 +5,8 @@
   "scripts": {
     "start": "node app.js",
     "dev": "nodemon app.js",
-    "db-push": "npx prisma db push && npx prisma generate && yarn install",
-    "db-pull": "npx prisma db pull && npx prisma generate && yarn install"
+    "db-push": "npx prisma db push && npx prisma generate",
+    "db-pull": "npx prisma db pull && npx prisma generate"
   },
   "dependencies": {
     "@prisma/client": "^4.3.1",

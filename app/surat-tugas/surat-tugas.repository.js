@@ -29,4 +29,11 @@ module.exports = {
       },
     });
   },
+  GetTagGroupByName: async (nama) => {
+    return await prisma.TagGroup.findUnique({
+      where: {
+        nama: nama,
+      },
+    });
+  },
 };

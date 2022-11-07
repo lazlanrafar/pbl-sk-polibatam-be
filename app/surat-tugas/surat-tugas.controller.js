@@ -4,6 +4,7 @@ const {
   CreateSuratTuas,
   UpdateSuratTugas,
   DeleteSuratTugas,
+  GetTagGroupByName,
 } = require("./surat-tugas.repository");
 
 module.exports = {
@@ -73,6 +74,28 @@ module.exports = {
       return Ok(res, result, "Berhasil menghapus Surat Keputusan");
     } catch (error) {
       InternalServerError(res, {}, "Terjadi Kesalahan");
+    }
+  },
+  ImportSuratTugas: async (req, res) => {
+    try {
+      for (const iterator of req.body) {
+        const TagGroup = await GetTagGroupByName(iterator["Nama Tag"]);
+
+        const payload = {
+          nama: iterator.Nama,
+          filePath: iterator.Dokumen,
+          deskripsi: iterator.Deskripsi,
+          tagId: +TagGroup.id,
+          createdBy: iterator["Dibuat Oleh"].toString(),
+        };
+
+        await CreateSuratTuas(payload);
+      }
+
+      return Ok(res, {}, "Berhasil membuat Surat Keputusan");
+    } catch (error) {
+      InternalServerError(res, {}, "Gagal Import Surat Keputusan");
+      console.log(error);
     }
   },
 };

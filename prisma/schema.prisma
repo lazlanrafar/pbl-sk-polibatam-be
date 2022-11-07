@@ -17,7 +17,7 @@ model Admin {
 
 model TagGroup {
   id             Int              @id @default(autoincrement())
-  nama           String
+  nama           String           @unique
   tag            String
   createdBy      String
   createdAt      DateTime         @default(now())
@@ -29,7 +29,8 @@ model TagGroup {
 model SuratKeputusan {
   id        Int       @id @default(autoincrement())
   nama      String
-  filePath  String
+  filePath  String?
+  fileUrl   String?
   deskripsi String
   tagId     Int
   TagGroup  TagGroup? @relation(fields: [tagId], references: [id], onDelete: Cascade)
@@ -42,7 +43,8 @@ model SuratKeputusan {
 model SuratTugas {
   id        Int       @id @default(autoincrement())
   nama      String
-  filePath  String
+  filePath  String?
+  fileUrl   String?
   deskripsi String
   tagId     Int
   TagGroup  TagGroup? @relation(fields: [tagId], references: [id], onDelete: Cascade)
