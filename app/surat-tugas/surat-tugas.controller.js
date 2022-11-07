@@ -92,7 +92,7 @@ module.exports = {
 
         const payload = {
           nama: iterator.Nama,
-          filePath: iterator.Dokumen,
+          fileUrl: iterator.Dokumen,
           deskripsi: iterator.Deskripsi,
           tagId: +TagGroup.id,
           createdBy: iterator["Dibuat Oleh"].toString(),
