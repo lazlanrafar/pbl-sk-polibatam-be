@@ -1,4 +1,5 @@
 const { Ok, InternalServerError } = require("../../utils/http-response");
+const { GetTagGroupByName } = require("../surat-tugas/surat-tugas.repository");
 const {
   FetchSuratKeputusan,
   CreateSuratKeputusan,
@@ -67,6 +68,27 @@ module.exports = {
     try {
       const result = await DeleteSuratKeputusan(req.params.id);
       return Ok(res, result, "Berhasil menghapus Surat Keputusan");
+    } catch (error) {
+      InternalServerError(res, {}, "Terjadi Kesalahan");
+    }
+  },
+  ImportSuratKeputusan: async (req, res) => {
+    try {
+      for (const iterator of req.body) {
+        const TagGroup = await GetTagGroupByName(iterator["Nama Tag"]);
+
+        const payload = {
+          nama: iterator.Nama,
+          filePath: iterator.Dokumen,
+          deskripsi: iterator.Deskripsi,
+          tagId: +TagGroup.id,
+          createdBy: iterator["Dibuat Oleh"].toString(),
+        };
+
+        await CreateSuratKeputusan(payload);
+      }
+
+      return Ok(res, {}, "Berhasil membuat Surat Keputusan");
     } catch (error) {
       InternalServerError(res, {}, "Terjadi Kesalahan");
     }

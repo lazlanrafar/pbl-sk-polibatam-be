@@ -4,6 +4,7 @@ const {
   CreateSuratKeputusan,
   UpdateSuratKeputusan,
   DeleteSuratKeputusan,
+  ImportSuratKeputusan,
 } = require("./surat-keputusan.controller");
 const router = express.Router();
 
@@ -25,5 +26,7 @@ router.get("/:id?", ReadSuratKeputusan);
 router.post("/", Upload, CreateSuratKeputusan);
 router.put("/:id", Upload, UpdateSuratKeputusan);
 router.delete("/:id", DeleteSuratKeputusan);
+
+router.post("/import", ImportSuratKeputusan);
 
 module.exports = router;
