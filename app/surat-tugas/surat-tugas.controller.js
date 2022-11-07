@@ -32,6 +32,15 @@ module.exports = {
       InternalServerError(res, {}, "Terjadi Kesalahan");
     }
   },
+  ReadOneSuratTugas: async (req, res) => {
+    try {
+      const result = await FetchSuratTugas(+req.params.id);
+
+      Ok(res, result, "Berhasil mengambil data");
+    } catch (error) {
+      InternalServerError(res, {}, "Terjadi Kesalahan");
+    }
+  },
   CreateSuratTugas: async (req, res) => {
     try {
       const payload = {
