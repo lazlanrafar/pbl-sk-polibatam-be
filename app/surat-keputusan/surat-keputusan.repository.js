@@ -2,7 +2,18 @@ const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
 module.exports = {
-  FetchSuratKeputusan: async () => {
+  FetchSuratKeputusan: async (id) => {
+    if (id) {
+      return await prisma.suratKeputusan.findUnique({
+        where: {
+          id: parseInt(id),
+        },
+        include: {
+          TagGroup: true,
+        },
+      });
+    }
+
     return await prisma.suratKeputusan.findMany({
       include: {
         TagGroup: true,

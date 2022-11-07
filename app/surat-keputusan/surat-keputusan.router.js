@@ -5,6 +5,7 @@ const {
   UpdateSuratKeputusan,
   DeleteSuratKeputusan,
   ImportSuratKeputusan,
+  ReadOneSuratKeputusan,
 } = require("./surat-keputusan.controller");
 const router = express.Router();
 
@@ -22,7 +23,8 @@ const Upload = multer({
   storage: Storage,
 }).fields([{ name: "filePath", maxCount: 1 }]);
 
-router.get("/:id?", ReadSuratKeputusan);
+router.get("/", ReadSuratKeputusan);
+router.get("/:id", ReadOneSuratKeputusan);
 router.post("/", Upload, CreateSuratKeputusan);
 router.put("/:id", Upload, UpdateSuratKeputusan);
 router.delete("/:id", DeleteSuratKeputusan);
