@@ -53,9 +53,9 @@ module.exports = {
         recentFile,
       };
 
-      Ok(res, result, "Berhasil mengambil data");
+      return Ok(res, result, "Berhasil mengambil data");
     } catch (error) {
-      InternalServerError(res, {}, "Terjadi Kesalahan");
+      return InternalServerError(res, {}, "Terjadi Kesalahan");
     }
   },
 };
