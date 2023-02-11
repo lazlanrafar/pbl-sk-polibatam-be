@@ -10,46 +10,40 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Admin {
-  id  Int    @id @default(autoincrement())
-  nim String @unique
+model tbm_admin {
+  uid String @unique
 }
 
-model TagGroup {
-  id             Int              @id @default(autoincrement())
-  nama           String           @unique
-  tag            String
-  createdBy      String
-  createdAt      DateTime         @default(now())
-  updatedAt      DateTime         @updatedAt
-  SuratKeputusan SuratKeputusan[]
-  SuratTugas     SuratTugas[]
+model tbm_tag_group {
+  id                  String                @id @default(uuid())
+  name                String                @unique
+  data                String
+  created_at          DateTime              @default(now())
+  updated_at          DateTime              @default(now())
+  is_deleted          Boolean               @default(false)
+  created_by          String
+  tbl_document_detail tbl_document_detail[]
 }
 
-model SuratKeputusan {
-  id        Int       @id @default(autoincrement())
-  nama      String
-  filePath  String?
-  fileUrl   String?
-  deskripsi String
-  tagId     Int
-  TagGroup  TagGroup? @relation(fields: [tagId], references: [id], onDelete: Cascade)
-  createdBy String
-  updatedBy String    @default("")
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
+model tbl_document {
+  id                  String                @id @default(uuid())
+  type                String
+  filepath            String
+  name                String
+  remarks             String
+  data_mahasiswa      Json                  @default("[]")
+  data_pegawai        Json                  @default("[]")
+  created_at          DateTime              @default(now())
+  updated_at          DateTime              @default(now())
+  is_deleted          Boolean               @default(false)
+  created_by          String
+  tbl_document_detail tbl_document_detail[]
 }
 
-model SuratTugas {
-  id        Int       @id @default(autoincrement())
-  nama      String
-  filePath  String?
-  fileUrl   String?
-  deskripsi String
-  tagId     Int
-  TagGroup  TagGroup? @relation(fields: [tagId], references: [id], onDelete: Cascade)
-  createdBy String
-  updatedBy String    @default("")
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
+model tbl_document_detail {
+  id           String         @id @default(uuid())
+  id_document  String
+  id_tag_group String?        @default("")
+  document     tbl_document   @relation(fields: [id_document], references: [id])
+  tag_group    tbm_tag_group? @relation(fields: [id_tag_group], references: [id])
 }

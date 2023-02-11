@@ -1,4 +1,4 @@
-DATABASE_URL="postgresql://postgres:Pass1234@localhost:5432/db-pbl-sk-polibatam?schema=public"
+DATABASE_URL="postgresql://postgres:Pass1234@localhost:5432/db-template-express-prisma?schema=public"
 
 API_PORT=3000
 API_VERSION=v1

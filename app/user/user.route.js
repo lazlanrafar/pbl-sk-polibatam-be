@@ -1,7 +1,8 @@
 const express = require("express");
-const { FetchDashboard } = require("./dashboard.controller");
 const router = express.Router();
 
-router.get("/", FetchDashboard);
+router.get("/", (req, res) => {
+  res.json({ message: "Hello World" });
+});
 
 module.exports = router;
