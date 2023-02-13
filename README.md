@@ -1,4 +1,4 @@
-## Template Express.js and Prisma
+## Aplikasi Distribusi SK dan Surat Tugas
 
 This Project would provide a set of tools and features that make it easy to build and deploy web applications and APIs using Express.js and Prisma.
 
