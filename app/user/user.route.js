@@ -1,8 +1,7 @@
 const express = require("express");
+const { GetAllMahasiswa } = require("./user.controller");
 const router = express.Router();
 
-router.get("/", (req, res) => {
-  res.json({ message: "Hello World" });
-});
+router.get("/mahasiswa", GetAllMahasiswa);
 
 module.exports = router;

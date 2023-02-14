@@ -8,7 +8,8 @@ module.exports = function (app) {
   const preRoute = `/api/${apiVersion}`;
 
   app.use(`${preRoute}/`, authRoute);
-  app.use(`${preRoute}/user`, userRoute);
+
+  app.use(`${preRoute}/user`, AuthToken, userRoute);
 
   app.get(`${preRoute}/whois`, AuthToken, (req, res) => {
     res.json({
