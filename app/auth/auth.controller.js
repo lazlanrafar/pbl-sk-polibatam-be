@@ -23,7 +23,6 @@ module.exports = {
       });
 
       const token = EncryptToken({
-        user: result.data.data,
         secretkey: resLogin.data.data.secretkey,
       });
 
