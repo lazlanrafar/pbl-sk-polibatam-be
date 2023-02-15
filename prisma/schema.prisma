@@ -6,9 +6,14 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "sqlite"
   url      = env("DATABASE_URL")
 }
+
+// datasource db {
+//   provider = "postgresql"
+//   url      = env("DATABASE_URL")
+// }
 
 model tbm_admin {
   uid String @unique
@@ -31,8 +36,8 @@ model tbl_document {
   filepath            String
   name                String
   remarks             String
-  data_mahasiswa      Json                  @default("[]")
-  data_pegawai        Json                  @default("[]")
+  data_mahasiswa      String                @default("")
+  data_pegawai        String                @default("")
   created_at          DateTime              @default(now())
   updated_at          DateTime              @default(now())
   is_deleted          Boolean               @default(false)
