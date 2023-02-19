@@ -32,7 +32,11 @@ module.exports = {
         filter: `nim=${req.params.nim}`,
       });
 
-      return Ok(res, result.data.data, "Successfull to fetch mahasiswa by NIM");
+      return Ok(
+        res,
+        result.data.data[0],
+        "Successfull to fetch mahasiswa by NIM"
+      );
     } catch (error) {
       return InternalServerError(
         res,
