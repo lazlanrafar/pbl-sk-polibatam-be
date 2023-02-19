@@ -1,5 +1,6 @@
 const { fetchPolibatam } = require("../../utils/fetch-polibatam");
 const { InternalServerError, Ok } = require("../../utils/http-response");
+const { FetchIsAdmin } = require("./user.repository");
 
 module.exports = {
   GetAllMahasiswa: async (req, res) => {
@@ -14,8 +15,19 @@ module.exports = {
         token: token.data.data.token,
       });
 
-      return Ok(res, result.data.data, "Successfull to fetch all mahasiswa");
+      let data = [];
+      for (const iterator of result.data.data) {
+        let isAdmin = await FetchIsAdmin(iterator.NRP);
+
+        data.push({
+          ...iterator,
+          isAdmin: isAdmin ? true : false,
+        });
+      }
+
+      return Ok(res, data, "Successfull to fetch all mahasiswa");
     } catch (error) {
+      console.log(error);
       return InternalServerError(res, error, "Failed to fetch all mahasiswa");
     }
   },
