@@ -19,6 +19,28 @@ module.exports = {
       return InternalServerError(res, error, "Failed to fetch all mahasiswa");
     }
   },
+  GetMahasiswaByNIM: async (req, res) => {
+    try {
+      const token = await fetchPolibatam({
+        act: "GetToken",
+        secretkey: req.secretkey,
+      });
+
+      const result = await fetchPolibatam({
+        act: "GetDataByID",
+        token: token.data.data.token,
+        filter: `nim=${req.params.nim}`,
+      });
+
+      return Ok(res, result.data.data, "Successfull to fetch mahasiswa by NIM");
+    } catch (error) {
+      return InternalServerError(
+        res,
+        error,
+        "Failed to fetch mahasiswa by NIM"
+      );
+    }
+  },
   GetAllPegawai: async (req, res) => {
     try {
       const token = await fetchPolibatam({

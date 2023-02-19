@@ -31,18 +31,18 @@ model tbm_tag_group {
 }
 
 model tbl_document {
-  id                  String                @id @default(uuid())
-  type                String
-  filepath            String
-  name                String
-  remarks             String
-  data_mahasiswa      String                @default("")
-  data_pegawai        String                @default("")
-  created_at          DateTime              @default(now())
-  updated_at          DateTime              @default(now())
-  is_deleted          Boolean               @default(false)
-  created_by          String
-  tbl_document_detail tbl_document_detail[]
+  id             String                @id @default(uuid())
+  type           String
+  filepath       String
+  name           String
+  remarks        String
+  data_mahasiswa String                @default("")
+  data_pegawai   String                @default("")
+  created_at     DateTime              @default(now())
+  updated_at     DateTime              @default(now())
+  is_deleted     Boolean               @default(false)
+  created_by     String
+  details        tbl_document_detail[]
 }
 
 model tbl_document_detail {
