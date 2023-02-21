@@ -92,6 +92,28 @@ module.exports = {
       return InternalServerError(res, error, "Failed to fetch all pegawai");
     }
   },
+  GetPegawaiByNIK: async (req, res) => {
+    try {
+      const token = await fetchPolibatam({
+        act: "GetToken",
+        secretkey: req.secretkey,
+      });
+
+      const result = await fetchPolibatam({
+        act: "GetDataByID",
+        token: token.data.data.token,
+        filter: `nik=${req.params.nik}`,
+      });
+
+      return Ok(
+        res,
+        result.data.data[0],
+        "Successfull to fetch pegawai by NIK"
+      );
+    } catch (error) {
+      return InternalServerError(res, error, "Failed to fetch pegawai by NIK");
+    }
+  },
   SetAdmin: async (req, res) => {
     try {
       const check = await FetchIsAdmin(req.body.uid);
@@ -104,6 +126,7 @@ module.exports = {
 
       return Ok(res, {}, "Successfull to set admin");
     } catch (error) {
+      console.log(error);
       return InternalServerError(res, error, "Failed to set admin");
     }
   },
