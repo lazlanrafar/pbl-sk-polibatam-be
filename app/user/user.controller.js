@@ -70,17 +70,25 @@ module.exports = {
         act: "GetToken",
         secretkey: req.secretkey,
       });
-      console.log("token", token);
 
       const result = await fetchPolibatam({
         act: "GetSemuaPegawai",
         token: token.data.data.token,
       });
 
-      console.log("result", result);
+      let data = [];
+      for (const iterator of result.data.data) {
+        let isAdmin = iterator.NIK ? await FetchIsAdmin(iterator.NIK) : false;
 
-      return Ok(res, result.data.data, "Successfull to fetch all pegawai");
+        data.push({
+          ...iterator,
+          isAdmin: isAdmin ? true : false,
+        });
+      }
+
+      return Ok(res, data, "Successfull to fetch all pegawai");
     } catch (error) {
+      console.log(error);
       return InternalServerError(res, error, "Failed to fetch all pegawai");
     }
   },

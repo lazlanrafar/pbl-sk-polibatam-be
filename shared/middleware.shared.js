@@ -28,7 +28,8 @@ module.exports = {
         ...user.data.data,
         isAdmin,
       };
-      req.secretkey = deCode.secretkey;
+      // req.secretkey = deCode.secretkey;
+      req.secretkey = "HatUHvrEc8IyF8ur37uER9X32RAY3kBg";
 
       next();
     } catch (error) {
