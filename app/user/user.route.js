@@ -4,6 +4,7 @@ const {
   GetAllPegawai,
   GetMahasiswaByNIM,
   SetAdmin,
+  DeleteAdmin,
 } = require("./user.controller");
 const router = express.Router();
 
@@ -13,5 +14,6 @@ router.get("/mahasiswa/:nim", GetMahasiswaByNIM);
 router.get("/pegawai", GetAllPegawai);
 
 router.post("/admin", SetAdmin);
+router.delete("/admin", DeleteAdmin);
 
 module.exports = router;

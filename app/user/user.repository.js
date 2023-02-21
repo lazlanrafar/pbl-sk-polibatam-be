@@ -16,4 +16,11 @@ module.exports = {
       },
     });
   },
+  DestroyAdmin: async (uid) => {
+    return await prisma.tbm_admin.delete({
+      where: {
+        uid: uid,
+      },
+    });
+  },
 };
