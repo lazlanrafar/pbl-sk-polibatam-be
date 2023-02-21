@@ -1,6 +1,6 @@
 const { fetchPolibatam } = require("../../utils/fetch-polibatam");
 const { InternalServerError, Ok } = require("../../utils/http-response");
-const { FetchIsAdmin } = require("./user.repository");
+const { FetchIsAdmin, CreateAdmin } = require("./user.repository");
 
 module.exports = {
   GetAllMahasiswa: async (req, res) => {
@@ -27,7 +27,6 @@ module.exports = {
 
       return Ok(res, data, "Successfull to fetch all mahasiswa");
     } catch (error) {
-      console.log(error);
       return InternalServerError(res, error, "Failed to fetch all mahasiswa");
     }
   },
@@ -74,8 +73,22 @@ module.exports = {
 
       return Ok(res, result.data.data, "Successfull to fetch all pegawai");
     } catch (error) {
-      console.log(error);
       return InternalServerError(res, error, "Failed to fetch all pegawai");
+    }
+  },
+  SetAdmin: async (req, res) => {
+    try {
+      const check = await FetchIsAdmin(req.body.uid);
+
+      if (check) {
+        return Ok(res, {}, "User already admin");
+      }
+
+      await CreateAdmin(req.body.uid);
+
+      return Ok(res, {}, "Successfull to set admin");
+    } catch (error) {
+      return InternalServerError(res, error, "Failed to set admin");
     }
   },
 };

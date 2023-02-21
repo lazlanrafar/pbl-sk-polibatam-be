@@ -3,6 +3,7 @@ const {
   GetAllMahasiswa,
   GetAllPegawai,
   GetMahasiswaByNIM,
+  SetAdmin,
 } = require("./user.controller");
 const router = express.Router();
 
@@ -10,5 +11,7 @@ router.get("/mahasiswa", GetAllMahasiswa);
 router.get("/mahasiswa/:nim", GetMahasiswaByNIM);
 
 router.get("/pegawai", GetAllPegawai);
+
+router.post("/admin", SetAdmin);
 
 module.exports = router;

@@ -9,4 +9,11 @@ module.exports = {
       },
     });
   },
+  CreateAdmin: async (uid) => {
+    return await prisma.tbm_admin.create({
+      data: {
+        uid: uid,
+      },
+    });
+  },
 };
