@@ -1,15 +1,26 @@
 const { InternalServerError, Ok } = require("../../utils/http-response");
-const { StoreTagGroup, FetchTagGroup } = require("./tag-group.Repository");
+const {
+  StoreTagGroup,
+  FetchTagGroup,
+  FetchTagGroupById,
+} = require("./tag-group.Repository");
 
 module.exports = {
   GetTagGroup: async (req, res) => {
     try {
       const result = await FetchTagGroup();
 
-      result.forEach((item) => {
-        item.data_mahasiswa = JSON.parse(item.data_mahasiswa);
-        item.data_pegawai = JSON.parse(item.data_pegawai);
-      });
+      return Ok(res, result, "Successfull to get tag group");
+    } catch (error) {
+      return InternalServerError(res, error, "Failed to get tag group");
+    }
+  },
+  GetTagGroupById: async (req, res) => {
+    try {
+      const result = await FetchTagGroupById(req.params.id);
+
+      result.data_mahasiswa = JSON.parse(result.data_mahasiswa);
+      result.data_pegawai = JSON.parse(result.data_pegawai);
 
       return Ok(res, result, "Successfull to get tag group");
     } catch (error) {

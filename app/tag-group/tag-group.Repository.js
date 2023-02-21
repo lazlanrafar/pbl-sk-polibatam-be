@@ -7,6 +7,27 @@ module.exports = {
       where: {
         is_deleted: false,
       },
+      select: {
+        id: true,
+        name: true,
+        created_at: true,
+        created_by: true,
+      },
+    });
+  },
+  FetchTagGroupById(id) {
+    return prisma.tbm_tag_group.findUnique({
+      where: {
+        id: id,
+      },
+      select: {
+        id: true,
+        name: true,
+        data_mahasiswa: true,
+        data_pegawai: true,
+        created_by: true,
+        created_at: true,
+      },
     });
   },
   FetchTagGroupByName: async (name) => {
