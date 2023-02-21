@@ -1,3 +1,4 @@
+const { FetchIsAdmin } = require("../app/user/user.repository");
 const { fetchPolibatam } = require("../utils/fetch-polibatam");
 const { Unauthorized } = require("../utils/http-response");
 const { DecryptToken } = require("../utils/jwt");
@@ -21,7 +22,12 @@ module.exports = {
         return Unauthorized(res, {}, "Unauthorized");
       }
 
-      req.user = user.data.data;
+      const isAdmin = (await FetchIsAdmin(user.data.data.id)) ? true : false;
+
+      req.user = {
+        ...user.data.data,
+        isAdmin,
+      };
       req.secretkey = deCode.secretkey;
 
       next();
