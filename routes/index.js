@@ -4,6 +4,7 @@ const authRoute = require("../app/auth/auth.route");
 const userRoute = require("../app/user/user.route");
 
 const tagGroupRoute = require("../app/tag-group/tag-group.Route");
+const documentRoute = require("../app/document/document.Route");
 
 module.exports = function (app) {
   const apiVersion = process.env.API_VERSION || "v1";
@@ -13,6 +14,7 @@ module.exports = function (app) {
 
   app.use(`${preRoute}/user`, AuthToken, userRoute);
   app.use(`${preRoute}/tag-group`, AuthToken, tagGroupRoute);
+  app.use(`${preRoute}/document`, AuthToken, documentRoute);
 
   app.get(`${preRoute}/whois`, AuthToken, (req, res) => {
     res.json({

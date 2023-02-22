@@ -36,7 +36,7 @@ model tbl_document {
   type           String
   filepath       String
   name           String
-  remarks        String
+  remarks        String                @default("")
   data_mahasiswa String                @default("")
   data_pegawai   String                @default("")
   created_at     DateTime              @default(now())
@@ -49,7 +49,7 @@ model tbl_document {
 model tbl_document_detail {
   id           String         @id @default(uuid())
   id_document  String
-  id_tag_group String?        @default("")
+  id_tag_group String
   document     tbl_document   @relation(fields: [id_document], references: [id])
   tag_group    tbm_tag_group? @relation(fields: [id_tag_group], references: [id])
 }
