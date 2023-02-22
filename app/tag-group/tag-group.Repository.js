@@ -50,4 +50,14 @@ module.exports = {
       data,
     });
   },
+  DestroyTagGroup: async (id) => {
+    return await prisma.tbm_tag_group.update({
+      where: {
+        id: id,
+      },
+      data: {
+        is_deleted: true,
+      },
+    });
+  },
 };

@@ -1,9 +1,14 @@
-const { InternalServerError, Ok } = require("../../utils/http-response");
+const {
+  InternalServerError,
+  Ok,
+  BadRequest,
+} = require("../../utils/http-response");
 const {
   StoreTagGroup,
   FetchTagGroup,
   FetchTagGroupById,
   UpdateTagGroup,
+  DestroyTagGroup,
 } = require("./tag-group.Repository");
 
 module.exports = {
@@ -44,6 +49,18 @@ module.exports = {
       return Ok(res, {}, "Successfull to update tag group");
     } catch (error) {
       return InternalServerError(res, error, "Failed to update tag group");
+    }
+  },
+  DeleteTagGroup: async (req, res) => {
+    try {
+      const check = await FetchTagGroupById(req.params.id);
+      if (!check) return BadRequest(res, {}, "Tag group not found");
+
+      await DestroyTagGroup(req.params.id);
+
+      return Ok(res, {}, "Successfull to delete tag group");
+    } catch (error) {
+      return InternalServerError(res, error, "Failed to delete tag group");
     }
   },
 };
