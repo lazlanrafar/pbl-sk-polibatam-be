@@ -3,6 +3,7 @@ const {
   StoreTagGroup,
   FetchTagGroup,
   FetchTagGroupById,
+  UpdateTagGroup,
 } = require("./tag-group.Repository");
 
 module.exports = {
@@ -34,6 +35,15 @@ module.exports = {
       return Ok(res, {}, "Successfull to create tag group");
     } catch (error) {
       return InternalServerError(res, error, "Failed to create tag group");
+    }
+  },
+  EditTagGroup: async (req, res) => {
+    try {
+      await UpdateTagGroup(req.params.id, req.body);
+
+      return Ok(res, {}, "Successfull to update tag group");
+    } catch (error) {
+      return InternalServerError(res, error, "Failed to update tag group");
     }
   },
 };

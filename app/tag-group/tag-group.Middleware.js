@@ -11,11 +11,17 @@ module.exports = {
       if (!name) return BadRequest(res, {}, "Name is required");
 
       const checkName = await FetchTagGroupByName(name);
-      if (checkName) return BadRequest(res, {}, "Name already exists");
+      if (req.params.id) {
+        if (checkName && checkName.id != req.params.id)
+          return BadRequest(res, {}, "Name already exist");
+      } else {
+        if (checkName) return BadRequest(res, {}, "Name already exists");
+      }
 
       req.body.data_mahasiswa = JSON.stringify(req.body.data_mahasiswa);
       req.body.data_pegawai = JSON.stringify(req.body.data_pegawai);
-      req.body.created_by = req.user.id;
+
+      if (!req.params.id) req.body.created_by = req.user.id;
 
       next();
     } catch (error) {

@@ -42,4 +42,12 @@ module.exports = {
       data,
     });
   },
+  UpdateTagGroup: async (id, data) => {
+    return await prisma.tbm_tag_group.update({
+      where: {
+        id: id,
+      },
+      data,
+    });
+  },
 };
