@@ -2,6 +2,21 @@ const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
 module.exports = {
+  FetchDocumentByType: async (type) => {
+    return await prisma.tbl_document.findMany({
+      where: {
+        type: type,
+      },
+      select: {
+        id: true,
+        name: true,
+        remarks: true,
+        filepath: true,
+        created_at: true,
+        created_by: true,
+      },
+    });
+  },
   StoreDocument: async (data) => {
     return await prisma.tbl_document.create({
       data,

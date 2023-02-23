@@ -4,7 +4,7 @@ const router = express.Router();
 const path = require("path");
 const multer = require("multer");
 const { BodyReqDocumentMiddleware } = require("./document.Middleware");
-const { CreateDocument } = require("./document.Controller");
+const { CreateDocument, GetDocumentByType } = require("./document.Controller");
 
 const Storage = multer.diskStorage({
   destination: "public/documents/",
@@ -17,9 +17,7 @@ const Upload = multer({
   storage: Storage,
 }).fields([{ name: "filepath", maxCount: 1 }]);
 
-router.get("/", (req, res) => {
-  res.send("Hello World");
-});
+router.get("/type/:type", GetDocumentByType);
 router.post("/", Upload, BodyReqDocumentMiddleware, CreateDocument);
 
 module.exports = router;

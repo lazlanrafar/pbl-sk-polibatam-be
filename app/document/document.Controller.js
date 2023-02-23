@@ -1,7 +1,20 @@
 const { InternalServerError, Ok } = require("../../utils/http-response");
-const { StoreDocument, StoreDocumentDetail } = require("./document.Repository");
+const {
+  StoreDocument,
+  StoreDocumentDetail,
+  FetchDocumentByType,
+} = require("./document.Repository");
 
 module.exports = {
+  GetDocumentByType: async (req, res) => {
+    try {
+      const result = await FetchDocumentByType(req.params.type);
+
+      return Ok(res, result, "Successfull to get document");
+    } catch (error) {
+      return InternalServerError(res, error, "Failed to get document");
+    }
+  },
   CreateDocument: async (req, res) => {
     try {
       const result = await StoreDocument({
@@ -15,7 +28,6 @@ module.exports = {
       });
 
       for (const iterator of req.body.details) {
-        console.log(iterator);
         await StoreDocumentDetail({
           id_document: result.id,
           id_tag_group: iterator.id,
