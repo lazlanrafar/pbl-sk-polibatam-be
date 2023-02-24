@@ -3,12 +3,34 @@ const {
   StoreDocument,
   StoreDocumentDetail,
   FetchDocumentByType,
+  FetchDocumentById,
 } = require("./document.Repository");
 
 module.exports = {
   GetDocumentByType: async (req, res) => {
     try {
       const result = await FetchDocumentByType(req.params.type);
+
+      return Ok(res, result, "Successfull to get document");
+    } catch (error) {
+      return InternalServerError(res, error, "Failed to get document");
+    }
+  },
+  GetDocumentById: async (req, res) => {
+    try {
+      const result = await FetchDocumentById(req.params.id);
+
+      result.data_mahasiswa = JSON.parse(result.data_mahasiswa);
+      result.data_pegawai = JSON.parse(result.data_pegawai);
+
+      result.details.forEach((element) => {
+        element.tag_group.data_mahasiswa = JSON.parse(
+          element.tag_group.data_mahasiswa
+        );
+        element.tag_group.data_pegawai = JSON.parse(
+          element.tag_group.data_pegawai
+        );
+      });
 
       return Ok(res, result, "Successfull to get document");
     } catch (error) {

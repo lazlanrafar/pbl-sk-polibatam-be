@@ -17,6 +17,36 @@ module.exports = {
       },
     });
   },
+  FetchDocumentById: async (id) => {
+    return await prisma.tbl_document.findUnique({
+      where: {
+        id: id,
+      },
+      select: {
+        id: true,
+        name: true,
+        remarks: true,
+        filepath: true,
+        data_mahasiswa: true,
+        data_pegawai: true,
+        created_by: true,
+        created_at: true,
+        type: true,
+        details: {
+          select: {
+            tag_group: {
+              select: {
+                id: true,
+                name: true,
+                data_mahasiswa: true,
+                data_pegawai: true,
+              },
+            },
+          },
+        },
+      },
+    });
+  },
   StoreDocument: async (data) => {
     return await prisma.tbl_document.create({
       data,
