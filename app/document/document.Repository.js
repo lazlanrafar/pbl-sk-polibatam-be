@@ -76,4 +76,11 @@ module.exports = {
       },
     });
   },
+  DestroyDocument: async (id) => {
+    return await prisma.tbl_document.delete({
+      where: {
+        id: id,
+      },
+    });
+  },
 };

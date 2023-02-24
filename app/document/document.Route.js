@@ -9,6 +9,7 @@ const {
   GetDocumentByType,
   GetDocumentById,
   EditDocument,
+  DeleteDocument,
 } = require("./document.Controller");
 
 const Storage = multer.diskStorage({
@@ -27,5 +28,7 @@ router.get("/:id", GetDocumentById);
 
 router.post("/", Upload, BodyReqDocumentMiddleware, CreateDocument);
 router.put("/:id", Upload, BodyReqDocumentMiddleware, EditDocument);
+
+router.delete("/:id", DeleteDocument);
 
 module.exports = router;

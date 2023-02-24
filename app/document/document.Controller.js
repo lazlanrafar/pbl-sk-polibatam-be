@@ -6,6 +6,7 @@ const {
   FetchDocumentById,
   UpdateDocument,
   DestroyAllDocumentDetailByIdDocument,
+  DestroyDocument,
 } = require("./document.Repository");
 
 module.exports = {
@@ -90,8 +91,18 @@ module.exports = {
 
       return Ok(res, {}, "Successfull to update document");
     } catch (error) {
-      console.log(error);
       return InternalServerError(res, error, "Failed to update document");
+    }
+  },
+  DeleteDocument: async (req, res) => {
+    try {
+      await DestroyAllDocumentDetailByIdDocument(req.params.id);
+      await DestroyDocument(req.params.id);
+
+      return Ok(res, {}, "Successfull to delete document");
+    } catch (error) {
+      console.log(error);
+      return InternalServerError(res, error, "Failed to delete document");
     }
   },
 };
