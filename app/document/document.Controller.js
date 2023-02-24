@@ -12,9 +12,46 @@ const {
 module.exports = {
   GetDocumentByType: async (req, res) => {
     try {
+      const user = req.user;
       const result = await FetchDocumentByType(req.params.type);
 
-      return Ok(res, result, "Successfull to get document");
+      result.forEach((element) => {
+        element.data_mahasiswa = JSON.parse(element.data_mahasiswa);
+        element.data_pegawai = JSON.parse(element.data_pegawai);
+
+        element.details.forEach((el) => {
+          for (const iterator of JSON.parse(el.tag_group.data_mahasiswa)) {
+            element.data_mahasiswa.push(iterator);
+          }
+          for (const iterator of JSON.parse(el.tag_group.data_pegawai)) {
+            element.data_pegawai.push(iterator);
+          }
+        });
+
+        delete element.details;
+      });
+
+      let data = [];
+      if (user.isAdmin) {
+        data = result;
+      } else {
+        if (user.role == "Mahasiswa") {
+          data = result.filter((el) =>
+            el.data_mahasiswa.some((el) => el.NRP == user.id)
+          );
+        } else {
+          data = result.filter((el) =>
+            el.data_pegawai.some((el) => el.NIP == user.id)
+          );
+        }
+      }
+
+      data.forEach((element) => {
+        delete element.data_mahasiswa;
+        delete element.data_pegawai;
+      });
+
+      return Ok(res, data, "Successfull to get document");
     } catch (error) {
       return InternalServerError(res, error, "Failed to get document");
     }
