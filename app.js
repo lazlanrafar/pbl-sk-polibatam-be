@@ -16,6 +16,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 require("./routes")(app);
+app.get("/documents", express.static("public/documents"));
 
 const port = process.env.API_PORT || 3000;
 app.listen(port, () => {

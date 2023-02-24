@@ -13,6 +13,9 @@ const {
 module.exports = {
   GetAllMahasiswa: async (req, res) => {
     try {
+      const { angkatan } = req.query;
+      const year = angkatan ? angkatan : new Date().getFullYear();
+
       const token = await fetchPolibatam({
         act: "GetToken",
         secretkey: req.secretkey,
@@ -21,6 +24,7 @@ module.exports = {
       const result = await fetchPolibatam({
         act: "GetSemuaMahasiswa",
         token: token.data.data.token,
+        filter: `angkatan=${year}`,
       });
 
       let data = [];
