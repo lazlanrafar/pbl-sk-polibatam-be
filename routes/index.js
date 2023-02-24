@@ -2,6 +2,8 @@ const { AuthToken } = require("../shared/middleware.shared");
 
 const authRoute = require("../app/auth/auth.route");
 
+const dashboardRoute = require("../app/dashboard/dashboard.Route");
+
 const tagGroupRoute = require("../app/tag-group/tag-group.Route");
 const documentRoute = require("../app/document/document.Route");
 
@@ -15,6 +17,8 @@ module.exports = function (app) {
   const preRoute = `/api/${apiVersion}`;
 
   app.use(`${preRoute}/`, authRoute);
+
+  app.use(`${preRoute}/dashboard`, AuthToken, dashboardRoute);
 
   app.use(`${preRoute}/tag-group`, AuthToken, tagGroupRoute);
   app.use(`${preRoute}/document`, AuthToken, documentRoute);
