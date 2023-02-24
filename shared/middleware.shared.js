@@ -1,4 +1,4 @@
-const { FetchIsAdmin } = require("../app/user/user.repository");
+const { FetchIsAdmin } = require("../app/admin/admin.Repository");
 const { fetchPolibatam } = require("../utils/fetch-polibatam");
 const { Unauthorized } = require("../utils/http-response");
 const { DecryptToken } = require("../utils/jwt");

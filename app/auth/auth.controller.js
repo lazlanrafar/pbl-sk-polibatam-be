@@ -1,7 +1,7 @@
 const { fetchPolibatam } = require("../../utils/fetch-polibatam");
 const { Ok, InternalServerError } = require("../../utils/http-response");
 const { EncryptToken } = require("../../utils/jwt");
-const { FetchIsAdmin } = require("../user/user.repository");
+const { FetchIsAdmin } = require("../admin/admin.Repository");
 
 module.exports = {
   Login: async (req, res) => {

@@ -1,6 +1,6 @@
 const { fetchPolibatam } = require("../../utils/fetch-polibatam");
 const { Ok, InternalServerError } = require("../../utils/http-response");
-const { FetchIsAdmin } = require("../user/user.repository");
+const { FetchIsAdmin } = require("../admin/admin.Repository");
 
 module.exports = {
   GetAllJurusan: async (req, res) => {
