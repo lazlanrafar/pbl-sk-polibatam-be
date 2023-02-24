@@ -4,6 +4,8 @@ const {
   StoreDocumentDetail,
   FetchDocumentByType,
   FetchDocumentById,
+  UpdateDocument,
+  DestroyAllDocumentDetailByIdDocument,
 } = require("./document.Repository");
 
 module.exports = {
@@ -58,8 +60,38 @@ module.exports = {
 
       return Ok(res, {}, "Successfull to create document");
     } catch (error) {
-      //   console.log(error);
       return InternalServerError(res, error, "Failed to create document");
+    }
+  },
+  EditDocument: async (req, res) => {
+    try {
+      const data = {
+        type: req.body.type,
+        name: req.body.name,
+        remarks: req.body.remarks,
+        data_mahasiswa: req.body.data_mahasiswa,
+        data_pegawai: req.body.data_pegawai,
+      };
+
+      if (req.files.filepath) {
+        data.filepath = req.files.filepath[0].filename;
+      }
+
+      const result = await UpdateDocument(req.params.id, data);
+
+      await DestroyAllDocumentDetailByIdDocument(req.params.id);
+
+      for (const iterator of req.body.details) {
+        await StoreDocumentDetail({
+          id_document: result.id,
+          id_tag_group: iterator.id,
+        });
+      }
+
+      return Ok(res, {}, "Successfull to update document");
+    } catch (error) {
+      console.log(error);
+      return InternalServerError(res, error, "Failed to update document");
     }
   },
 };

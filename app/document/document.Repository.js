@@ -61,4 +61,19 @@ module.exports = {
       },
     });
   },
+  UpdateDocument: async (id, data) => {
+    return await prisma.tbl_document.update({
+      where: {
+        id: id,
+      },
+      data,
+    });
+  },
+  DestroyAllDocumentDetailByIdDocument: async (id) => {
+    return await prisma.tbl_document_detail.deleteMany({
+      where: {
+        id_document: id,
+      },
+    });
+  },
 };

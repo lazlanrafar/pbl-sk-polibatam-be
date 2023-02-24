@@ -8,6 +8,7 @@ const {
   CreateDocument,
   GetDocumentByType,
   GetDocumentById,
+  EditDocument,
 } = require("./document.Controller");
 
 const Storage = multer.diskStorage({
@@ -25,5 +26,6 @@ router.get("/type/:type", GetDocumentByType);
 router.get("/:id", GetDocumentById);
 
 router.post("/", Upload, BodyReqDocumentMiddleware, CreateDocument);
+router.put("/:id", Upload, BodyReqDocumentMiddleware, EditDocument);
 
 module.exports = router;
