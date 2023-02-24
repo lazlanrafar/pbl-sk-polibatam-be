@@ -20,6 +20,23 @@ module.exports = {
       return InternalServerError(res, error, "Failed to fetch all jurusan");
     }
   },
+  GetAllProdi: async (req, res) => {
+    try {
+      const token = await fetchPolibatam({
+        act: "GetToken",
+        secretkey: req.secretkey,
+      });
+
+      const result = await fetchPolibatam({
+        act: "GetSemuaProdi",
+        token: token.data.data.token,
+      });
+
+      return Ok(res, result.data.data, "Successfull to fetch all prodi");
+    } catch (error) {
+      return InternalServerError(res, error, "Failed to fetch all prodi");
+    }
+  },
   GetAllMahasiswa: async (req, res) => {
     try {
       const { angkatan } = req.query;
