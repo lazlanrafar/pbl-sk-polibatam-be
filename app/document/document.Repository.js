@@ -48,6 +48,17 @@ module.exports = {
       },
     });
   },
+  FetchDocumentByIdTagGroup: async (id) => {
+    return await prisma.tbl_document.findMany({
+      where: {
+        details: {
+          some: {
+            id_tag_group: id,
+          },
+        },
+      },
+    });
+  },
   StoreDocument: async (data) => {
     return await prisma.tbl_document.create({
       data,

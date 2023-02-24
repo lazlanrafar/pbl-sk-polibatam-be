@@ -4,6 +4,9 @@ const {
   BadRequest,
 } = require("../../utils/http-response");
 const {
+  FetchDocumentByIdTagGroup,
+} = require("../document/document.Repository");
+const {
   StoreTagGroup,
   FetchTagGroup,
   FetchTagGroupById,
@@ -55,6 +58,11 @@ module.exports = {
     try {
       const check = await FetchTagGroupById(req.params.id);
       if (!check) return BadRequest(res, {}, "Tag group not found");
+
+      const checkDocument = await FetchDocumentByIdTagGroup(req.params.id);
+      if (checkDocument.length > 0) {
+        return BadRequest(res, {}, "Tag group is used in document");
+      }
 
       await DestroyTagGroup(req.params.id);
 
