@@ -37,7 +37,7 @@ module.exports = {
 
       let data = [];
       for (const iterator of result.data.data) {
-        let isAdmin = iterator.NIK ? await FetchIsAdmin(iterator.NIK) : false;
+        let isAdmin = iterator.NIP ? await FetchIsAdmin(iterator.NIP) : false;
 
         data.push({
           ...iterator,
