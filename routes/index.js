@@ -9,6 +9,7 @@ const documentRoute = require("../app/document/document.Route");
 
 // Setup
 const mahasiswaRoute = require("../app/mahasiswa/mahasiswa.Route");
+const pegawaiRoute = require("../app/pegawai/pegawai.Route");
 
 module.exports = function (app) {
   const apiVersion = process.env.API_VERSION || "v1";
@@ -22,6 +23,7 @@ module.exports = function (app) {
 
   // Setup
   app.use(`${preRoute}/mahasiswa`, AuthToken, mahasiswaRoute);
+  app.use(`${preRoute}/pegawai`, AuthToken, pegawaiRoute);
 
   app.get(`${preRoute}/whois`, AuthToken, (req, res) => {
     res.json({
