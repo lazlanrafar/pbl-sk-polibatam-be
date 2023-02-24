@@ -15,6 +15,8 @@ module.exports = {
         token: token.data.data.token,
       });
 
+      console.log("Unit ", result.data.data[0]);
+
       return Ok(res, result.data.data, "Successfull to fetch all unit");
     } catch (error) {
       return InternalServerError(res, error, "Failed to fetch all unit");

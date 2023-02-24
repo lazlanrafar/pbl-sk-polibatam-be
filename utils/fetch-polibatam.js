@@ -9,6 +9,9 @@ module.exports = {
       data: data,
       headers: {
         "Content-Type": "multipart/form-data",
+        "Cache-Control": "no-cache",
+        Pragma: "no-cache",
+        Expires: "0",
       },
     });
   },
