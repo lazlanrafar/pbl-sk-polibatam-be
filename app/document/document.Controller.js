@@ -20,17 +20,17 @@ module.exports = {
     try {
       const result = await FetchDocumentById(req.params.id);
 
-      result.data_mahasiswa = JSON.parse(result.data_mahasiswa);
-      result.data_pegawai = JSON.parse(result.data_pegawai);
+      // result.data_mahasiswa = JSON.parse(result.data_mahasiswa);
+      // result.data_pegawai = JSON.parse(result.data_pegawai);
 
-      result.details.forEach((element) => {
-        element.tag_group.data_mahasiswa = JSON.parse(
-          element.tag_group.data_mahasiswa
-        );
-        element.tag_group.data_pegawai = JSON.parse(
-          element.tag_group.data_pegawai
-        );
-      });
+      // result.details.forEach((element) => {
+      //   element.tag_group.data_mahasiswa = JSON.parse(
+      //     element.tag_group.data_mahasiswa
+      //   );
+      //   element.tag_group.data_pegawai = JSON.parse(
+      //     element.tag_group.data_pegawai
+      //   );
+      // });
 
       return Ok(res, result, "Successfull to get document");
     } catch (error) {
