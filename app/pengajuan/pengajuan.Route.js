@@ -1,5 +1,9 @@
 const express = require("express");
-const { CreatePengajuan, GetPengajuan } = require("./pengajuan.Controller");
+const {
+  CreatePengajuan,
+  GetPengajuan,
+  GetPengajuanById,
+} = require("./pengajuan.Controller");
 const { PengajuanFormMiddleware } = require("./pengajuan.Middleware");
 const router = express.Router();
 
@@ -18,6 +22,7 @@ const Upload = multer({
 }).fields([{ name: "filepath_lampiran", maxCount: 1 }]);
 
 router.get("/", GetPengajuan);
+router.get("/:id", GetPengajuanById);
 router.post("/", Upload, PengajuanFormMiddleware, CreatePengajuan);
 
 module.exports = router;

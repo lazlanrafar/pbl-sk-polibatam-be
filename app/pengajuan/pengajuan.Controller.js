@@ -1,5 +1,9 @@
 const { InternalServerError, Ok } = require("../../utils/http-response");
-const { StorePengajuan, FetchPengajuan } = require("./pengajuan.Repository");
+const {
+  StorePengajuan,
+  FetchPengajuan,
+  FetchPengajuanById,
+} = require("./pengajuan.Repository");
 
 module.exports = {
   GetPengajuan: async (req, res) => {
@@ -8,6 +12,19 @@ module.exports = {
       if (!req.user.isAdmin) createdBy = req.user.id;
 
       const result = await FetchPengajuan(createdBy);
+
+      return Ok(res, result, "Successfull to fetch pengajuan");
+    } catch (error) {
+      return InternalServerError(res, error, "Failed to fetch pengajuan");
+    }
+  },
+  GetPengajuanById: async (req, res) => {
+    try {
+      const result = await FetchPengajuanById(req.params.id);
+
+      result.list_consider = JSON.parse(result.list_consider);
+      result.list_observe = JSON.parse(result.list_observe);
+      result.list_decide = JSON.parse(result.list_decide);
 
       return Ok(res, result, "Successfull to fetch pengajuan");
     } catch (error) {
