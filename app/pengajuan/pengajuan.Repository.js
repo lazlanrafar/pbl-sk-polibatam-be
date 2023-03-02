@@ -47,4 +47,11 @@ module.exports = {
       data,
     });
   },
+  DestoryPengajuan: async (id) => {
+    return await prisma.tbl_pengajuan.delete({
+      where: {
+        id: id,
+      },
+    });
+  },
 };

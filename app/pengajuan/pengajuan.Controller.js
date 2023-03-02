@@ -3,6 +3,7 @@ const {
   StorePengajuan,
   FetchPengajuan,
   FetchPengajuanById,
+  DestoryPengajuan,
 } = require("./pengajuan.Repository");
 
 module.exports = {
@@ -53,6 +54,15 @@ module.exports = {
       return Ok(res, {}, "Successfull to create pengajuan");
     } catch (error) {
       return InternalServerError(res, error, "Failed to create pengajuan");
+    }
+  },
+  DeletePengajuan: async (req, res) => {
+    try {
+      await DestoryPengajuan(req.params.id);
+
+      return Ok(res, {}, "Successfull to delete pengajuan");
+    } catch (error) {
+      return InternalServerError(res, error, "Failed to delete pengajuan");
     }
   },
 };
