@@ -67,7 +67,8 @@ model tbl_pengajuan {
   list_consider     String
   list_observe      String
   list_decide       String
-  status            String         @default("ON PROGRESS")
+  status            String         @default("POSTED")
+  remarks           String         @default("")
   date_issue        DateTime?
   created_at        DateTime       @default(now())
   updated_at        DateTime       @default(now())

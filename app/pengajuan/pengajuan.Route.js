@@ -6,6 +6,7 @@ const {
   DeletePengajuan,
   EditPengajuan,
   ApprovePengajuan,
+  RejectPengajuan,
 } = require("./pengajuan.Controller");
 const { PengajuanFormMiddleware } = require("./pengajuan.Middleware");
 const router = express.Router();
@@ -28,6 +29,7 @@ router.get("/", GetPengajuan);
 router.get("/:id", GetPengajuanById);
 
 router.post("/approve", ApprovePengajuan);
+router.post("/reject", RejectPengajuan);
 
 router.post("/", Upload, PengajuanFormMiddleware, CreatePengajuan);
 

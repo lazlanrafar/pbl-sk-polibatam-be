@@ -72,6 +72,7 @@ module.exports = {
         list_observe: req.body.list_observe,
         list_decide: req.body.list_decide,
         created_by: req.user.id,
+        status: "POSTED",
       };
 
       if (req.body.is_lampiran && req.files.filepath_lampiran) {
@@ -99,12 +100,13 @@ module.exports = {
       const pengajuan = await FetchPengajuanById(req.body.id_pengajuan);
 
       const result = await StoreDocument({
-        type: "Surat Tugas",
+        type: "Surat Keterangan",
         name: pengajuan.title,
         data_mahasiswa: JSON.stringify(req.body.data_mahasiswa),
         data_pegawai: JSON.stringify(req.body.data_pegawai),
         created_by: req.user.id,
         is_from_pengajuan: true,
+        remarks: req.body.remarks,
         id_pengajuan: req.body.id_pengajuan,
       });
 
@@ -117,12 +119,24 @@ module.exports = {
 
       await UpdatePengajuan(req.body.id_pengajuan, {
         status: "APPROVED",
+        date_issue: new Date(),
       });
 
       return Ok(res, {}, "Successfull to approve pengajuan");
     } catch (error) {
-      console.log(error);
       return InternalServerError(res, error, "Failed to approve pengajuan");
+    }
+  },
+  RejectPengajuan: async (req, res) => {
+    try {
+      await UpdatePengajuan(req.body.id_pengajuan, {
+        status: "REJECTED",
+        remarks: req.body.remarks,
+      });
+
+      return Ok(res, {}, "Successfull to reject pengajuan");
+    } catch (error) {
+      return InternalServerError(res, error, "Failed to reject pengajuan");
     }
   },
 };
