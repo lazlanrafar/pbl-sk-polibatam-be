@@ -58,19 +58,20 @@ model tbl_document_detail {
 }
 
 model tbl_pengajuan {
-  id            String         @id @default(uuid())
-  title         String
-  type          String
-  lampiran      String
-  pickup_plan   String
-  list_consider String
-  list_observe  String
-  list_decide   String
-  status        String         @default("ON PROGRESS")
-  date_issue    DateTime?
-  created_at    DateTime       @default(now())
-  updated_at    DateTime       @default(now())
-  is_deleted    Boolean        @default(false)
-  created_by    String
-  tbl_document  tbl_document[]
+  id                String         @id @default(uuid())
+  title             String
+  type              String
+  is_lampiran       Boolean        @default(false)
+  filepath_lampiran String?
+  pickup_plan       String
+  list_consider     String
+  list_observe      String
+  list_decide       String
+  status            String         @default("ON PROGRESS")
+  date_issue        DateTime?
+  created_at        DateTime       @default(now())
+  updated_at        DateTime       @default(now())
+  is_deleted        Boolean        @default(false)
+  created_by        String
+  tbl_document      tbl_document[]
 }
