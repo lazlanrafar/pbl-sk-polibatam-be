@@ -7,6 +7,8 @@ const dashboardRoute = require("../app/dashboard/dashboard.Route");
 const tagGroupRoute = require("../app/tag-group/tag-group.Route");
 const documentRoute = require("../app/document/document.Route");
 
+const pengajuanRoute = require("../app/pengajuan/pengajuan.Route");
+
 // Setup
 const adminRoute = require("../app/admin/admin.Route");
 const mahasiswaRoute = require("../app/mahasiswa/mahasiswa.Route");
@@ -22,6 +24,8 @@ module.exports = function (app) {
 
   app.use(`${preRoute}/tag-group`, AuthToken, tagGroupRoute);
   app.use(`${preRoute}/document`, AuthToken, documentRoute);
+
+  app.use(`${preRoute}/pengajuan`, AuthToken, pengajuanRoute);
 
   // Setup
   app.use(`${preRoute}/admin`, AuthToken, adminRoute);

@@ -138,7 +138,6 @@ module.exports = {
 
       return Ok(res, {}, "Successfull to delete document");
     } catch (error) {
-      console.log(error);
       return InternalServerError(res, error, "Failed to delete document");
     }
   },

@@ -32,18 +32,21 @@ model tbm_tag_group {
 }
 
 model tbl_document {
-  id             String                @id @default(uuid())
-  type           String
-  filepath       String
-  name           String
-  remarks        String                @default("")
-  data_mahasiswa String                @default("")
-  data_pegawai   String                @default("")
-  created_at     DateTime              @default(now())
-  updated_at     DateTime              @default(now())
-  is_deleted     Boolean               @default(false)
-  created_by     String
-  details        tbl_document_detail[]
+  id                String                @id @default(uuid())
+  type              String
+  filepath          String
+  name              String
+  remarks           String                @default("")
+  data_mahasiswa    String                @default("")
+  data_pegawai      String                @default("")
+  created_at        DateTime              @default(now())
+  updated_at        DateTime              @default(now())
+  is_deleted        Boolean               @default(false)
+  created_by        String
+  is_from_pengajuan Boolean               @default(false)
+  id_pengajuan      String?
+  pengajuan         tbl_pengajuan?        @relation(fields: [id_pengajuan], references: [id])
+  details           tbl_document_detail[]
 }
 
 model tbl_document_detail {
@@ -52,4 +55,22 @@ model tbl_document_detail {
   id_tag_group String
   document     tbl_document   @relation(fields: [id_document], references: [id])
   tag_group    tbm_tag_group? @relation(fields: [id_tag_group], references: [id])
+}
+
+model tbl_pengajuan {
+  id            String         @id @default(uuid())
+  title         String
+  type          String
+  lampiran      String
+  pickup_plan   String
+  list_consider String
+  list_observe  String
+  list_decide   String
+  status        String         @default("ON PROGRESS")
+  date_issue    DateTime?
+  created_at    DateTime       @default(now())
+  updated_at    DateTime       @default(now())
+  is_deleted    Boolean        @default(false)
+  created_by    String
+  tbl_document  tbl_document[]
 }

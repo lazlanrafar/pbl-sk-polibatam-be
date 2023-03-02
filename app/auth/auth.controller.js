@@ -39,7 +39,6 @@ module.exports = {
 
       return Ok(res, payload, "User logged in successfully");
     } catch (error) {
-      console.log(error);
       return InternalServerError(res, error, "Failed to login user");
     }
   },
