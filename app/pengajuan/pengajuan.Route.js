@@ -5,6 +5,7 @@ const {
   GetPengajuanById,
   DeletePengajuan,
   EditPengajuan,
+  ApprovePengajuan,
 } = require("./pengajuan.Controller");
 const { PengajuanFormMiddleware } = require("./pengajuan.Middleware");
 const router = express.Router();
@@ -25,7 +26,11 @@ const Upload = multer({
 
 router.get("/", GetPengajuan);
 router.get("/:id", GetPengajuanById);
+
+router.post("/approve", ApprovePengajuan);
+
 router.post("/", Upload, PengajuanFormMiddleware, CreatePengajuan);
+
 router.put("/:id", Upload, PengajuanFormMiddleware, EditPengajuan);
 router.delete("/:id", DeletePengajuan);
 

@@ -1,5 +1,9 @@
 const { InternalServerError, Ok } = require("../../utils/http-response");
 const {
+  StoreDocument,
+  StoreDocumentDetail,
+} = require("../document/document.Repository");
+const {
   StorePengajuan,
   FetchPengajuan,
   FetchPengajuanById,
@@ -78,7 +82,6 @@ module.exports = {
 
       return Ok(res, {}, "Successfull to update pengajuan");
     } catch (error) {
-      console.log(error);
       return InternalServerError(res, error, "Failed to update pengajuan");
     }
   },
@@ -89,6 +92,37 @@ module.exports = {
       return Ok(res, {}, "Successfull to delete pengajuan");
     } catch (error) {
       return InternalServerError(res, error, "Failed to delete pengajuan");
+    }
+  },
+  ApprovePengajuan: async (req, res) => {
+    try {
+      const pengajuan = await FetchPengajuanById(req.body.id_pengajuan);
+
+      const result = await StoreDocument({
+        type: "Surat Tugas",
+        name: pengajuan.title,
+        data_mahasiswa: JSON.stringify(req.body.data_mahasiswa),
+        data_pegawai: JSON.stringify(req.body.data_pegawai),
+        created_by: req.user.id,
+        is_from_pengajuan: true,
+        id_pengajuan: req.body.id_pengajuan,
+      });
+
+      for (const iterator of req.body.details) {
+        await StoreDocumentDetail({
+          id_document: result.id,
+          id_tag_group: iterator.id,
+        });
+      }
+
+      await UpdatePengajuan(req.body.id_pengajuan, {
+        status: "APPROVED",
+      });
+
+      return Ok(res, {}, "Successfull to approve pengajuan");
+    } catch (error) {
+      console.log(error);
+      return InternalServerError(res, error, "Failed to approve pengajuan");
     }
   },
 };
