@@ -44,6 +44,14 @@ module.exports = {
         created_by: true,
         created_at: true,
         type: true,
+        is_from_pengajuan: true,
+        pengajuan: {
+          select: {
+            id: true,
+            filepath_lampiran: true,
+            created_by: true,
+          },
+        },
         details: {
           select: {
             tag_group: {
