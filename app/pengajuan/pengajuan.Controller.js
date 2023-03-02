@@ -4,6 +4,7 @@ const {
   FetchPengajuan,
   FetchPengajuanById,
   DestoryPengajuan,
+  UpdatePengajuan,
 } = require("./pengajuan.Repository");
 
 module.exports = {
@@ -54,6 +55,31 @@ module.exports = {
       return Ok(res, {}, "Successfull to create pengajuan");
     } catch (error) {
       return InternalServerError(res, error, "Failed to create pengajuan");
+    }
+  },
+  EditPengajuan: async (req, res) => {
+    try {
+      let data = {
+        title: req.body.title,
+        type: req.body.type,
+        is_lampiran: req.body.is_lampiran,
+        pickup_plan: req.body.pickup_plan,
+        list_consider: req.body.list_consider,
+        list_observe: req.body.list_observe,
+        list_decide: req.body.list_decide,
+        created_by: req.user.id,
+      };
+
+      if (req.body.is_lampiran && req.files.filepath_lampiran) {
+        data.filepath_lampiran = req.files.filepath_lampiran[0].filename;
+      }
+
+      await UpdatePengajuan(req.params.id, data);
+
+      return Ok(res, {}, "Successfull to update pengajuan");
+    } catch (error) {
+      console.log(error);
+      return InternalServerError(res, error, "Failed to update pengajuan");
     }
   },
   DeletePengajuan: async (req, res) => {
