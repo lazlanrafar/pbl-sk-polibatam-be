@@ -21,7 +21,7 @@ module.exports = {
       req.body.data_mahasiswa = JSON.stringify(req.body.data_mahasiswa);
       req.body.data_pegawai = JSON.stringify(req.body.data_pegawai);
 
-      if (!req.params.id) req.body.created_by = req.user.id;
+      if (!req.params.id) req.body.created_by = req.user.nama;
 
       next();
     } catch (error) {
