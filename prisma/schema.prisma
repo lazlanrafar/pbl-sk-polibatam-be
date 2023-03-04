@@ -62,6 +62,7 @@ model tbl_pengajuan {
   title             String
   type              String
   is_lampiran       Boolean        @default(false)
+  filepath          String?
   filepath_lampiran String?
   pickup_plan       String
   list_consider     String

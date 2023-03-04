@@ -1,3 +1,4 @@
+const { CreateBorangPengajuanSurat } = require("../../utils/create-file");
 const { InternalServerError, Ok } = require("../../utils/http-response");
 const {
   StoreDocument,
@@ -10,6 +11,7 @@ const {
   DestoryPengajuan,
   UpdatePengajuan,
 } = require("./pengajuan.Repository");
+const moment = require("moment");
 
 module.exports = {
   GetPengajuan: async (req, res) => {
@@ -47,7 +49,7 @@ module.exports = {
         list_consider: req.body.list_consider,
         list_observe: req.body.list_observe,
         list_decide: req.body.list_decide,
-        created_by: req.user.id,
+        created_by: req.user.nama,
       };
 
       if (req.body.is_lampiran) {
@@ -99,9 +101,55 @@ module.exports = {
     try {
       const pengajuan = await FetchPengajuanById(req.body.id_pengajuan);
 
+      pengajuan.list_consider = JSON.parse(pengajuan.list_consider);
+      pengajuan.list_observe = JSON.parse(pengajuan.list_observe);
+      pengajuan.list_decide = JSON.parse(pengajuan.list_decide);
+
+      let list_consider = [];
+      pengajuan.list_consider.forEach((element, i) => {
+        list_consider.push({
+          item: `${i + 1}. ${element}`,
+        });
+      });
+
+      let list_observe = [];
+      pengajuan.list_observe.forEach((element, i) => {
+        list_observe.push({
+          item: `${i + 1}. ${element}`,
+        });
+      });
+
+      let list_decide = [];
+      pengajuan.list_decide.forEach((element, i) => {
+        list_decide.push({
+          item: `${i + 1}. ${element}`,
+        });
+      });
+
+      const data_docs = {
+        title: pengajuan.title,
+        list_consider: list_consider,
+        list_observe: list_observe,
+        list_decide: list_decide,
+        type: pengajuan.type,
+        is_lampiran: pengajuan.is_lampiran ? "Ada" : "Tidak Ada",
+        date_issue: moment().format("DD MMMM YYYY"),
+        pickup_plan: pengajuan.pickup_plan,
+        created_at: moment(pengajuan.created_at).format("DD MMMM YYYY"),
+        created_by: pengajuan.created_by,
+      };
+
+      const File = await CreateBorangPengajuanSurat(data_docs);
+      console.log(File);
+
+      if (!File) {
+        throw new Error("Gagal Membuat File Borang Pengajuan Surat");
+      }
+
       const result = await StoreDocument({
         type: "Surat Keterangan",
         name: pengajuan.title,
+        filepath: File,
         data_mahasiswa: JSON.stringify(req.body.data_mahasiswa),
         data_pegawai: JSON.stringify(req.body.data_pegawai),
         created_by: req.user.id,
@@ -120,6 +168,7 @@ module.exports = {
       await UpdatePengajuan(req.body.id_pengajuan, {
         status: "APPROVED",
         date_issue: new Date(),
+        filepath: File,
       });
 
       return Ok(res, {}, "Successfull to approve pengajuan");
