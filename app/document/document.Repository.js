@@ -27,6 +27,9 @@ module.exports = {
           },
         },
       },
+      orderBy: {
+        created_at: "desc",
+      },
     });
   },
   FetchDocumentById: async (id) => {
@@ -50,6 +53,7 @@ module.exports = {
             id: true,
             filepath_lampiran: true,
             created_by: true,
+            is_lampiran: true,
           },
         },
         details: {

@@ -20,9 +20,7 @@ module.exports = {
         ...data,
       });
 
-      const fileName = `Borang Pengajuan Surat ${moment().format(
-        "DD-MM-YYYY"
-      )}.docx`;
+      const fileName = `SK ${moment().format("DD-MM-YYYY hh-mm-ss")}.docx`;
 
       const buffer = doc.getZip().generate({
         type: "nodebuffer",
