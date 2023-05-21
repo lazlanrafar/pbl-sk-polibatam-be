@@ -36,7 +36,6 @@ model tbl_document {
   filepath          String?
   name              String
   remarks           String                @default("")
-  data_mahasiswa    String                @default("")
   data_pegawai      String                @default("")
   created_at        DateTime              @default(now())
   updated_at        DateTime              @default(now())

@@ -9,13 +9,12 @@ module.exports = {
       },
       select: {
         type: true,
-        data_mahasiswa: true,
+
         data_pegawai: true,
         details: {
           select: {
             tag_group: {
               select: {
-                data_mahasiswa: true,
                 data_pegawai: true,
               },
             },

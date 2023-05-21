@@ -13,6 +13,9 @@ module.exports = {
         created_at: true,
         created_by: true,
       },
+      orderBy: {
+        name: "asc",
+      },
     });
   },
   FetchTagGroupById(id) {
