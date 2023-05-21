@@ -29,6 +29,7 @@ module.exports = {
         id: true,
         title: true,
         type: true,
+        filepath: true,
         is_lampiran: true,
         filepath_lampiran: true,
         pickup_plan: true,

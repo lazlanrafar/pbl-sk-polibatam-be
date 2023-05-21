@@ -92,7 +92,6 @@ module.exports = {
         list_observe: req.body.list_observe,
         list_decide: req.body.list_decide,
         data_pegawai: req.body.data_pegawai,
-        created_by: req.user.id,
         status: "POSTED",
       };
 
@@ -172,25 +171,6 @@ module.exports = {
 
       if (!File) {
         throw new Error("Gagal Membuat File Borang Pengajuan Surat");
-      }
-
-      const result = await StoreDocument({
-        type: "Surat Keterangan",
-        name: pengajuan.title,
-        filepath: File,
-        data_mahasiswa: JSON.stringify(req.body.data_mahasiswa),
-        data_pegawai: JSON.stringify(req.body.data_pegawai),
-        created_by: req.user.id,
-        is_from_pengajuan: true,
-        remarks: req.body.remarks,
-        id_pengajuan: req.body.id_pengajuan,
-      });
-
-      for (const iterator of req.body.details) {
-        await StoreDocumentDetail({
-          id_document: result.id,
-          id_tag_group: iterator.id,
-        });
       }
 
       await UpdatePengajuan(req.body.id_pengajuan, {
