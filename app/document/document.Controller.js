@@ -53,9 +53,6 @@ module.exports = {
       result.data_pegawai = JSON.parse(result.data_pegawai);
 
       result.details.forEach((element) => {
-        element.tag_group.data_mahasiswa = JSON.parse(
-          element.tag_group.data_mahasiswa
-        );
         element.tag_group.data_pegawai = JSON.parse(
           element.tag_group.data_pegawai
         );
