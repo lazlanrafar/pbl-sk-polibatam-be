@@ -34,6 +34,13 @@ module.exports = {
       result.list_consider = JSON.parse(result.list_consider);
       result.list_observe = JSON.parse(result.list_observe);
       result.list_decide = JSON.parse(result.list_decide);
+      result.data_pegawai = JSON.parse(result.data_pegawai);
+
+      result.details.forEach((element) => {
+        element.tag_group.data_pegawai = JSON.parse(
+          element.tag_group.data_pegawai
+        );
+      });
 
       return Ok(res, result, "Successfull to fetch pengajuan");
     } catch (error) {

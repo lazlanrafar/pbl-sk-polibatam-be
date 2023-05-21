@@ -39,6 +39,19 @@ module.exports = {
         list_consider: true,
         list_decide: true,
         list_observe: true,
+        data_pegawai: true,
+        details: {
+          select: {
+            tag_group: {
+              select: {
+                id: true,
+                name: true,
+                data_pegawai: true,
+                created_by: true,
+              },
+            },
+          },
+        },
       },
     });
   },
