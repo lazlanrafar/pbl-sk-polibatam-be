@@ -22,7 +22,6 @@ model tbm_admin {
 model tbm_tag_group {
   id                  String                @id @default(uuid())
   name                String                @unique
-  data_mahasiswa      String?               @default("")
   data_pegawai        String?               @default("")
   created_at          DateTime              @default(now())
   updated_at          DateTime              @default(now())

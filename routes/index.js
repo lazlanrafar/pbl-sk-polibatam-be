@@ -11,7 +11,6 @@ const pengajuanRoute = require("../app/pengajuan/pengajuan.Route");
 
 // Setup
 const adminRoute = require("../app/admin/admin.Route");
-const mahasiswaRoute = require("../app/mahasiswa/mahasiswa.Route");
 const pegawaiRoute = require("../app/pegawai/pegawai.Route");
 
 module.exports = function (app) {
@@ -29,7 +28,6 @@ module.exports = function (app) {
 
   // Setup
   app.use(`${preRoute}/admin`, AuthToken, adminRoute);
-  app.use(`${preRoute}/mahasiswa`, AuthToken, mahasiswaRoute);
   app.use(`${preRoute}/pegawai`, AuthToken, pegawaiRoute);
 
   app.get(`${preRoute}/whois`, AuthToken, (req, res) => {

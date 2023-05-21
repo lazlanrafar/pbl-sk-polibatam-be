@@ -28,7 +28,6 @@ module.exports = {
     try {
       const result = await FetchTagGroupById(req.params.id);
 
-      result.data_mahasiswa = JSON.parse(result.data_mahasiswa);
       result.data_pegawai = JSON.parse(result.data_pegawai);
 
       return Ok(res, result, "Successfull to get tag group");

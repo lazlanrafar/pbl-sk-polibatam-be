@@ -23,7 +23,6 @@ module.exports = {
       select: {
         id: true,
         name: true,
-        data_mahasiswa: true,
         data_pegawai: true,
         created_by: true,
         created_at: true,

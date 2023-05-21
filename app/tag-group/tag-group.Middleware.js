@@ -18,7 +18,6 @@ module.exports = {
         if (checkName) return BadRequest(res, {}, "Name already exists");
       }
 
-      req.body.data_mahasiswa = JSON.stringify(req.body.data_mahasiswa);
       req.body.data_pegawai = JSON.stringify(req.body.data_pegawai);
 
       if (!req.params.id) req.body.created_by = req.user.nama;
