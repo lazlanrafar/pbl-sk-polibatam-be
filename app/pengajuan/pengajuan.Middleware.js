@@ -16,6 +16,12 @@ module.exports = {
         return BadRequest(res, {}, "List decide is required");
       }
 
+      if (req.body.data_pegawai.length == 0 && req.body.details.length == 0) {
+        return BadRequest(res, {}, "data pegawai is required");
+      }
+
+      req.body.details = JSON.parse(req.body.details);
+
       req.body.is_lampiran = req.body.is_lampiran == "true" ? true : false;
       if (!req.params.id) req.body.created_by = req.user.id;
 

@@ -6,16 +6,8 @@ const {
 module.exports = {
   BodyReqDocumentMiddleware: async (req, res, next) => {
     try {
-      if (
-        req.body.data_mahasiswa.length == 0 &&
-        req.body.data_pegawai.length == 0 &&
-        req.body.details.length == 0
-      ) {
-        return BadRequest(
-          res,
-          {},
-          "Data mahasiswa and data pegawai is required"
-        );
+      if (req.body.data_pegawai.length == 0 && req.body.details.length == 0) {
+        return BadRequest(res, {}, "data pegawai is required");
       }
 
       //   req.body.data_mahasiswa = JSON.stringify(req.body.data_mahasiswa);

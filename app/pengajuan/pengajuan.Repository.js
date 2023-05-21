@@ -47,6 +47,14 @@ module.exports = {
       data,
     });
   },
+  StorePengajuanDetail: async (data) => {
+    return await prisma.tbl_pengajuan_detail.create({
+      data: {
+        id_pengajuan: data.id_pengajuan,
+        id_tag_group: data.id_tag_group,
+      },
+    });
+  },
   UpdatePengajuan: async (id, data) => {
     return await prisma.tbl_pengajuan.update({
       where: {
