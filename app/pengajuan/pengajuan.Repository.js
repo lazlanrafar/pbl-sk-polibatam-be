@@ -83,4 +83,11 @@ module.exports = {
       },
     });
   },
+  DestroyAllPengajuanDetailByIdPengajuan: async (id) => {
+    return await prisma.tbl_pengajuan_detail.deleteMany({
+      where: {
+        id_pengajuan: id,
+      },
+    });
+  },
 };

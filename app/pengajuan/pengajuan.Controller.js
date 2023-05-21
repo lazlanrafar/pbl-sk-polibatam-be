@@ -11,6 +11,7 @@ const {
   DestoryPengajuan,
   UpdatePengajuan,
   StorePengajuanDetail,
+  DestroyAllPengajuanDetailByIdPengajuan,
 } = require("./pengajuan.Repository");
 const moment = require("moment");
 
@@ -90,6 +91,7 @@ module.exports = {
         list_consider: req.body.list_consider,
         list_observe: req.body.list_observe,
         list_decide: req.body.list_decide,
+        data_pegawai: req.body.data_pegawai,
         created_by: req.user.id,
         status: "POSTED",
       };
@@ -98,7 +100,16 @@ module.exports = {
         data.filepath_lampiran = req.files.filepath_lampiran[0].filename;
       }
 
-      await UpdatePengajuan(req.params.id, data);
+      const result = await UpdatePengajuan(req.params.id, data);
+
+      await DestroyAllPengajuanDetailByIdPengajuan(req.params.id);
+
+      for (const iterator of req.body.details) {
+        await StorePengajuanDetail({
+          id_pengajuan: result.id,
+          id_tag_group: iterator.id,
+        });
+      }
 
       return Ok(res, {}, "Successfull to update pengajuan");
     } catch (error) {
