@@ -25,6 +25,7 @@ module.exports = {
 
       return Ok(res, result, "Successfull to fetch pengajuan");
     } catch (error) {
+      console.log(error);
       return InternalServerError(res, error, "Failed to fetch pengajuan");
     }
   },
@@ -161,7 +162,7 @@ module.exports = {
         type: pengajuan.type,
         is_lampiran: pengajuan.is_lampiran ? "Ada" : "Tidak Ada",
         date_issue: moment().format("DD MMMM YYYY"),
-        pickup_plan: pengajuan.pickup_plan,
+        pickup_plan: moment(pengajuan.pickup_plan).format("DD MMMM YYYY"),
         created_at: moment(pengajuan.created_at).format("DD MMMM YYYY"),
         created_by: pengajuan.created_by,
       };

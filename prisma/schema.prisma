@@ -56,12 +56,12 @@ model tbl_document_detail {
 
 model tbl_pengajuan {
   id                String                 @id @default(uuid())
-  title             String
-  type              String
+  title             String                 @default("")
+  type              String                 @default("")
   is_lampiran       Boolean                @default(false)
-  filepath          String?
-  filepath_lampiran String?
-  pickup_plan       String
+  filepath          String?                @default("")
+  filepath_lampiran String?                @default("")
+  pickup_plan       String?                @default("")
   list_consider     String
   list_observe      String
   list_decide       String

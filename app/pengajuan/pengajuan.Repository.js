@@ -13,10 +13,14 @@ module.exports = {
         type: true,
         is_lampiran: true,
         filepath_lampiran: true,
+        filepath: true,
         pickup_plan: true,
         status: true,
         created_at: true,
         created_by: true,
+      },
+      orderBy: {
+        created_at: "desc",
       },
     });
   },
