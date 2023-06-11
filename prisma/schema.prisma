@@ -34,6 +34,7 @@ model tbm_tag_group {
 model tbl_document {
   id                String                @id @default(uuid())
   type              String
+  date              DateTime?             @default(now())
   filepath          String?
   name              String
   remarks           String                @default("")

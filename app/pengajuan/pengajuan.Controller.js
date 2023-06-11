@@ -197,4 +197,18 @@ module.exports = {
       return InternalServerError(res, error, "Failed to reject pengajuan");
     }
   },
+  PublishPengajuan: async (req, res) => {
+    try {
+      const { id } = req.params;
+      const pengajuan = await FetchPengajuanById(id);
+
+      await UpdatePengajuan(id, {
+        status: "PUBLISHED",
+      });
+
+      return Ok(res, {}, "Successfull to publish pengajuan");
+    } catch (error) {
+      return InternalServerError(res, error, "Failed to publish pengajuan");
+    }
+  },
 };
