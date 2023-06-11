@@ -8,9 +8,14 @@ module.exports = {
         is_deleted: false,
       },
       select: {
+        name: true,
+        filepath: true,
         type: true,
-
+        date: true,
+        remarks: true,
         data_pegawai: true,
+        created_at: true,
+        created_by: true,
         details: {
           select: {
             tag_group: {
@@ -20,11 +25,6 @@ module.exports = {
             },
           },
         },
-        name: true,
-        remarks: true,
-        created_at: true,
-        created_by: true,
-        filepath: true,
       },
       orderBy: {
         created_at: "desc",

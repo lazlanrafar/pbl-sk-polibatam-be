@@ -10,6 +10,7 @@ module.exports = {
       select: {
         id: true,
         name: true,
+        date: true,
         remarks: true,
         filepath: true,
         created_at: true,
@@ -38,6 +39,7 @@ module.exports = {
       select: {
         id: true,
         name: true,
+        date: true,
         remarks: true,
         filepath: true,
         data_pegawai: true,
