@@ -67,6 +67,7 @@ module.exports = {
     try {
       const result = await StoreDocument({
         type: req.body.type,
+        date: req.body.date,
         filepath: req.files.filepath[0].filename,
         name: req.body.name,
         remarks: req.body.remarks,
@@ -91,6 +92,7 @@ module.exports = {
     try {
       const data = {
         type: req.body.type,
+        date: req.body.date,
         name: req.body.name,
         remarks: req.body.remarks,
         data_pegawai: req.body.data_pegawai,
