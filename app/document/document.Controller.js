@@ -75,11 +75,13 @@ module.exports = {
         created_by: req.body.created_by,
       });
 
-      for (const iterator of req.body.details) {
-        await StoreDocumentDetail({
-          id_document: result.id,
-          id_tag_group: iterator.id,
-        });
+      if (req.body.details && req.body.details.length > 0) {
+        for (const iterator of req.body.details) {
+          await StoreDocumentDetail({
+            id_document: result.id,
+            id_tag_group: iterator.id,
+          });
+        }
       }
 
       return Ok(res, {}, "Successfull to create document");
@@ -106,11 +108,13 @@ module.exports = {
 
       await DestroyAllDocumentDetailByIdDocument(req.params.id);
 
-      for (const iterator of req.body.details) {
-        await StoreDocumentDetail({
-          id_document: result.id,
-          id_tag_group: iterator.id,
-        });
+      if (req.body.details && req.body.details.length > 0) {
+        for (const iterator of req.body.details) {
+          await StoreDocumentDetail({
+            id_document: result.id,
+            id_tag_group: iterator.id,
+          });
+        }
       }
 
       return Ok(res, {}, "Successfull to update document");
