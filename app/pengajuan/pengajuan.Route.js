@@ -7,11 +7,15 @@ const {
   EditPengajuan,
   ApprovePengajuan,
   RejectPengajuan,
+  PublishPengajuan,
 } = require("./pengajuan.Controller");
-const { PengajuanFormMiddleware } = require("./pengajuan.Middleware");
-const router = express.Router();
-
+const {
+  PengajuanFormMiddleware,
+  PengajuanFormPublishMiddleware,
+} = require("./pengajuan.Middleware");
 const moment = require("moment");
+
+const router = express.Router();
 
 const path = require("path");
 const multer = require("multer");
@@ -32,11 +36,21 @@ const Upload = multer({
   storage: Storage,
 }).fields([{ name: "filepath_lampiran", maxCount: 1 }]);
 
+const UploadPublish = multer({
+  storage: Storage,
+}).fields([{ name: "filepath", maxCount: 1 }]);
+
 router.get("/", GetPengajuan);
 router.get("/:id", GetPengajuanById);
 
 router.post("/approve", ApprovePengajuan);
 router.post("/reject", RejectPengajuan);
+router.post(
+  "/publish/:id",
+  UploadPublish,
+  PengajuanFormPublishMiddleware,
+  PublishPengajuan
+);
 
 router.post("/", Upload, PengajuanFormMiddleware, CreatePengajuan);
 

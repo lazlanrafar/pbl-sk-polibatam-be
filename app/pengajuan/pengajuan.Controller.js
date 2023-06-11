@@ -200,7 +200,23 @@ module.exports = {
   PublishPengajuan: async (req, res) => {
     try {
       const { id } = req.params;
-      const pengajuan = await FetchPengajuanById(id);
+
+      const result = await StoreDocument({
+        type: req.body.type,
+        date: req.body.date,
+        filepath: req.files.filepath[0].filename,
+        name: req.body.name,
+        remarks: req.body.remarks,
+        data_pegawai: req.body.data_pegawai,
+        created_by: req.body.created_by,
+      });
+
+      for (const iterator of req.body.details) {
+        await StoreDocumentDetail({
+          id_document: result.id,
+          id_tag_group: iterator.id,
+        });
+      }
 
       await UpdatePengajuan(id, {
         status: "PUBLISHED",
@@ -208,6 +224,7 @@ module.exports = {
 
       return Ok(res, {}, "Successfull to publish pengajuan");
     } catch (error) {
+      console.log(error);
       return InternalServerError(res, error, "Failed to publish pengajuan");
     }
   },
