@@ -30,7 +30,7 @@ const Upload = multer({
   storage: Storage,
 }).fields([{ name: "filepath", maxCount: 1 }]);
 
-router.get("/type/:type", GetDocumentByType);
+router.get("/", GetDocumentByType);
 router.get("/:id", GetDocumentById);
 
 router.post("/", Upload, BodyReqDocumentMiddleware, CreateDocument);

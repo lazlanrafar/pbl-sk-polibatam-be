@@ -13,7 +13,8 @@ module.exports = {
   GetDocumentByType: async (req, res) => {
     try {
       const user = req.user;
-      const result = await FetchDocumentByType(req.params.type);
+      const { type, year } = req.query;
+      const result = await FetchDocumentByType(type, +year);
 
       result.forEach((element) => {
         element.data_pegawai = JSON.parse(element.data_pegawai);

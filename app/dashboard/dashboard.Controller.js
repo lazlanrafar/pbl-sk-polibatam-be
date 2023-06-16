@@ -25,7 +25,7 @@ module.exports = {
 
       if (user.isAdmin) {
         length_sk = document.filter(
-          (el) => el.type === "Surat Keterangan"
+          (el) => el.type === "Surat Keputusan"
         ).length;
         length_st = document.filter((el) => el.type === "Surat Tugas").length;
 
@@ -39,7 +39,7 @@ module.exports = {
       if (!user.isAdmin) {
         length_sk = document.filter(
           (el) =>
-            el.type === "Surat Keterangan" &&
+            el.type === "Surat Keputusan" &&
             el.data_pegawai.some((el) => el.NIP == user.id)
         ).length;
         length_st = document.filter(

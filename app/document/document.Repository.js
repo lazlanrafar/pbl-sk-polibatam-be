@@ -2,10 +2,20 @@ const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
 module.exports = {
-  FetchDocumentByType: async (type) => {
+  /**
+   *
+   * @param {String} type
+   * @param {Int} year
+   * @returns
+   */
+  FetchDocumentByType: async (type, year) => {
     return await prisma.tbl_document.findMany({
       where: {
         type: type,
+        date: {
+          gte: new Date(year, 0, 1),
+          lt: new Date(year + 1, 0, 1),
+        },
       },
       select: {
         id: true,
