@@ -1,5 +1,9 @@
 const { fetchPolibatam } = require("../../utils/fetch-polibatam");
-const { Ok, InternalServerError } = require("../../utils/http-response");
+const {
+  Ok,
+  InternalServerError,
+  BadRequest,
+} = require("../../utils/http-response");
 const { EncryptToken } = require("../../utils/jwt");
 const { FetchIsAdmin } = require("../admin/admin.Repository");
 
@@ -22,6 +26,10 @@ module.exports = {
         act: "GetBiodata",
         secretkey: resLogin.data.data.secretkey,
       });
+      console.log(result.data.data);
+      // if (result.data.data.role === "Mahasiswa") {
+      //   return BadRequest(res, {}, "Role not allowed");
+      // }
 
       const token = EncryptToken({
         secretkey: resLogin.data.data.secretkey,

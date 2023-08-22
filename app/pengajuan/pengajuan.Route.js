@@ -13,7 +13,6 @@ const {
   PengajuanFormMiddleware,
   PengajuanFormPublishMiddleware,
 } = require("./pengajuan.Middleware");
-const moment = require("moment");
 
 const router = express.Router();
 
@@ -23,12 +22,7 @@ const multer = require("multer");
 const Storage = multer.diskStorage({
   destination: "public/documents/",
   filename: (_req, file, cb) => {
-    cb(
-      null,
-      "Lampiran " +
-        moment().format("DD-MM-YYYY hh-mm-ss") +
-        path.extname(file.originalname)
-    );
+    cb(null, Date.now() + path.extname(file.originalname));
   },
 });
 

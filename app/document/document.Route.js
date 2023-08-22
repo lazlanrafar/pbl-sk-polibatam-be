@@ -12,17 +12,10 @@ const {
   DeleteDocument,
 } = require("./document.Controller");
 
-const moment = require("moment");
-
 const Storage = multer.diskStorage({
   destination: "public/documents/",
   filename: (_req, file, cb) => {
-    cb(
-      null,
-      "Docs" +
-        moment().format("DD-MM-YYYY hh-mm-ss") +
-        path.extname(file.originalname)
-    );
+    cb(null, Date.now() + path.extname(file.originalname));
   },
 });
 
