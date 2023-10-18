@@ -31,7 +31,7 @@ module.exports = {
         secretkey: resLogin.data.data.secretkey,
       });
 
-      const isAdmin = (await FetchIsAdmin(result.data.data.id)) ? true : false;
+      const isAdmin = (await FetchIsAdmin(result.data.data.nik)) ? true : false;
 
       const payload = {
         user: {
