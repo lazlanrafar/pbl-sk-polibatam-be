@@ -1,6 +1,6 @@
 const axios = require("axios");
 const urlApiPolibatam = process.env.API_POLIBATAM_URL;
-import * as https from "https";
+const https = require("https");
 
 const httpsAgent = new https.Agent({
   rejectUnauthorized: false,
