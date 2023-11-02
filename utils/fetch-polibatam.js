@@ -1,5 +1,11 @@
 const axios = require("axios");
 const urlApiPolibatam = process.env.API_POLIBATAM_URL;
+import * as https from "https";
+
+const httpsAgent = new https.Agent({
+  rejectUnauthorized: false,
+  // cert: fs.readFileSync(certificatePath),
+});
 
 module.exports = {
   fetchPolibatam: async (data) => {
@@ -13,6 +19,7 @@ module.exports = {
         Pragma: "no-cache",
         Expires: "0",
       },
+      httpsAgent: httpsAgent,
     });
   },
 };
