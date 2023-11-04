@@ -1,6 +1,7 @@
 const { fetchPolibatam } = require("../../utils/fetch-polibatam");
-const { Ok, InternalServerError } = require("../../utils/http-response");
-const { FetchIsAdmin } = require("../admin/admin.Repository");
+const { Ok, InternalServerError, BadRequest } = require("../../utils/http-response");
+const { getRedis, setRedis, client } = require("../../utils/redis");
+const { FetchIsAdmin, FetchAdmin } = require("../admin/admin.Repository");
 
 module.exports = {
   GetAllUnitPegawai: async (req, res) => {
@@ -22,31 +23,46 @@ module.exports = {
   },
   GetAllPegawai: async (req, res) => {
     try {
-      const { unit } = req.query;
+      let result = [];
 
-      const token = await fetchPolibatam({
-        act: "GetToken",
-        secretkey: req.secretkey,
-      });
+      client.connect();
 
-      const result = await fetchPolibatam({
-        act: "GetSemuaPegawai",
-        token: token.data.data.token,
-        filter: `unit=${unit}`,
-      });
+      const responseRedis = await client.get("pegawai");
 
-      let data = [];
-      for (const iterator of result.data.data) {
-        let isAdmin = iterator.NIP ? await FetchIsAdmin(iterator.NIP) : false;
-
-        data.push({
-          ...iterator,
-          isAdmin: isAdmin ? true : false,
+      if (responseRedis) {
+        result = JSON.parse(responseRedis);
+      } else {
+        const token = await fetchPolibatam({
+          act: "GetToken",
+          secretkey: req.secretkey,
         });
+
+        const responsePolibatam = await fetchPolibatam({
+          act: "GetSemuaPegawai",
+          token: token.data.data.token,
+        });
+        console.log("responsePolibatam");
+
+        client.set("pegawai", JSON.stringify(responsePolibatam.data.data));
+        client.expire("pegawai", 60 * 60 * 24);
+
+        result = responsePolibatam.data.data;
       }
 
-      return Ok(res, data, "Successfull to fetch all pegawai");
+      client.disconnect();
+
+      const listAdmin = await FetchAdmin();
+
+      result.map((item) => {
+        const isAdmin = listAdmin.find((admin) => admin.uid === item.nip);
+
+        if (isAdmin) item.isAdmin = true;
+        else item.isAdmin = false;
+      });
+
+      return Ok(res, result, "Successfull to fetch all pegawai");
     } catch (error) {
+      console.log("error", error);
       return InternalServerError(res, error, "Failed to fetch all pegawai");
     }
   },
@@ -63,11 +79,7 @@ module.exports = {
         filter: `nip=${req.params.nip}`,
       });
 
-      return Ok(
-        res,
-        result.data.data[0],
-        "Successfull to fetch pegawai by NIP"
-      );
+      return Ok(res, result.data.data[0], "Successfull to fetch pegawai by NIP");
     } catch (error) {
       return InternalServerError(res, error, "Failed to fetch pegawai by NIP");
     }
