@@ -54,7 +54,7 @@ module.exports = {
       const listAdmin = await FetchAdmin();
 
       result.map((item) => {
-        const isAdmin = listAdmin.find((admin) => admin.uid === item.nip);
+        const isAdmin = listAdmin.find((admin) => admin.uid === item.NIP);
 
         if (isAdmin) item.isAdmin = true;
         else item.isAdmin = false;
